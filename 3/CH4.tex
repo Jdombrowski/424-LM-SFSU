@@ -1,0 +1,876 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+
+% PROBLEM 8
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment\ \# 3 \ Chapter 4} % Assignment title
+\newcommand{\hmwkDueDate}{Monday,\ October\ 16,\ 2017} % Due date
+\newcommand{\hmwkClass}{MATH\ 424} % Course/class
+\newcommand{\hmwkClassTime}{11:10am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Kafai} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Jonathan Dombrowski} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+Problem numbers	10, 24, 25, 33, 42, 53, 58, 64
+\newline	
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+%----------------------------------------------------------------------------------------
+%	Q 10
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}[Question 10]%
+%Question info goes here
+
+Snow geese feeding trial. Refer to the Journal
+of Applied Ecology (Vol. 32, 1995) study of the
+feeding habits of baby snow geese, Exercise 3.46
+(p. 127). The data on gosling weight change, digestion efficiency, acid-detergent fiber (all measured
+as percentages) and diet (plants or duck chow) for
+42 feeding trials are saved in the SNOWGEESE
+file. (The table shows selected observations.) The
+botanists were interested in predicting weight
+change (y) as a function of the other variables. The
+first-order model $E(y) = \beta_{0} + \beta_{1}x_{1}+\beta_{2}x_{2}$ , where
+\newline
+x 1 is digestion efficiency and x 2 is acid-detergent
+fiber, was fit to the data. The MINITAB printout
+is given below.
+\newline
+(a) Find the least squares prediction equation for
+weight change, y.
+\newline
+(b) Interpret the β-estimates in the equation,
+part a.
+\newline
+(c) Conduct the F -test for overall model adequacy
+using α = .01.
+\newline
+	(d) Find and interpret the values of R 2 and R a 2 .
+Which is the preferred measure of model fit?
+\newline
+(e) Conduct a test to determine if digestion efficiency, $x_{1}$ , is a useful linear predictor of weight
+change. Use α = .01.
+\newline
+(f) Form a 99\% confidence interval for β 2 . Interpret the result.
+%------------------------------------------------------
+	\begin{homeworkSection}{a}
+	\problemAnswer{
+		%Homework answer goes here
+		$E(y) =\hat \beta_{0} +\hat \beta_{1}x_{1}+\hat\beta_{2}x_{2}$
+		\newline
+		$E(y) = 12.18-0.0265x_{1}-0.4578x_{2}$
+
+	}
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{b}
+	\problemAnswer{
+
+	$H_0:\hat \beta_{1}=0$\newline
+	$H_a:\hat \beta_{1}\neq 0 $\newline
+
+	test Statistic: $t = \frac{\hat \beta_1}{s_{\hat\beta_{1}}}$\newline
+	Rejection region: $|t|>(t_{\frac{\alpha}{2}})$ or $p<\alpha$
+	\newline
+	$t_{\hat \beta_{1}} = -0.469, p-value = 0.623,p < \alpha /2 = 0.005 $ therefore p-value is small and we fail to reject $H_{0}$
+	\\
+	${{\beta_1}}$ represents the change in the $\hat y$ per unit change in $x_{1}$. Digestion Efficiency does not play a role in determining the weight change of baby snow geese. 
+	\\	
+	$H_0:\hat \beta_{2}=0$\newline
+	$H_a:\hat \beta_{2}\neq0$\newline
+
+	test Statistic: $t = \frac{\hat \beta_2}{s_{\hat\beta_{2}}}$\newline
+	Rejection region: $t>t_{\frac{\alpha}{2}}$ 
+	\newline
+		$t_{\hat \beta_{2}} = -3.569, p-value = 9.69e-04,p < \alpha /2= 0.005 $ therefore p-value is small and we must reject $H_{0}$
+		\newline
+		$\hat {\beta_{2}} = -0.	45783$
+		\\
+		Acid-detergent fiber does contribute to the weight change percentage in baby snow geese. 
+	 
+	}
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{c}
+	\problemAnswer{
+		%Homework answer goes here'
+		$H_0 : \hat \beta_{1} = \hat \beta_{2} = 0 $
+		\newline
+		$H_a : \hat \beta_{1} , \hat \beta_{2} \neq 0 $
+
+		Conducting an F-test for model adequacy with $\alpha = 0.01$ yields a p-value of 4.25e-7 and an F-value of 	21.88 on 39 degrees of freedom. We must then reject $H_0$, and state that the F-value is not equal to zero. Therefore the model is considered adequate. 
+	}
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{d}
+	\problemAnswer{
+		%Homework answer goes here
+		$R^{2} = 0.5288$ 
+		\newline
+		$R^{2}_{adj} = 0.5046$
+		\newline
+		The preferred measure of model fit is the adjusted $R^{2}$ value as it will take into account the degrees of freedom. and number of variables used in the fit. 
+	}
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{e}
+	\problemAnswer{
+		$H_{0} : \hat \beta = 0$
+		\newline
+		$H_{0} : \hat \beta \neq 0$
+		\newline
+		$\alpha = 0.01$
+		\newline
+		Results:
+		\newline
+		p-value = 1.64e-05  $< \alpha \rightarrow$ \\
+		reject ${{H_0, \beta_{1} = 0.1415}}$ \\
+		Rejecting the null hypothesis is stating that the predictor ${{\beta_{1}}}$ is a useful in predicting weight change in the linear model and that it has justification to remain a part of the model. 
+	}
+	
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{f}
+	\problemAnswer{
+		99\% confidence interval for adfiber(${{\beta_{2}}}$) is (-0.8051939 -0.1104742).
+		\newline
+
+		We can say with 99\% confidence that the true value for acid-detergent fiber's impact coefficient on the model is within the interval (-0.8051939 -0.1104742)
+	}
+	\end{homeworkSection}
+
+\end{homeworkProblem}
+
+\clearpage
+
+%-----------------------------------------------
+% Q24
+%------------------------------------------------------
+\begin{homeworkProblem}[Question 24]
+Cooling method for gas turbines. Refer to the
+Journal of Engineering for Gas Turbines and
+Power (January 2005) study of a high-pressure
+inlet fogging method for a gas turbine engine,
+Exercise 4.13 (p. 188). Recall that you fit a first-
+order model for heat rate (y) as a function of 
+speed (x 1 ), inlet temperature (x 2 ), exhaust tem-
+perature (x 3 ), cycle pressure ratio (x 4 ), and air
+flow rate (x 5 ) to data saved in the GASTUR-
+BINE file. A MINITAB printout with both a
+95\% confidence interval for E(y) and prediction
+interval for y for selected values of the x’s is
+shown below.
+\newline
+(a) Interpret the 95\% prediction interval for y in
+the words of the problem.
+\newline
+(b) Interpret the 95\% confidence interval for
+E(y) in the words of the problem.
+\newline
+(c) Will the confidence interval for E(y) always
+be narrower than the prediction interval for
+y? Explain.
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	Prediction interval: (11599.56 , 13665.49)
+	\\
+		With 95\% confidence we can predict that the next turbine made with the inlet fogging method, will have its heat rate fall within the prediction interval (11599.56 , 13665.49).
+	}
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+	Confidence interval (12157.9 , 13107.1) 
+	\newline
+	Given data for RPM, Inlet-temperature, Exhaust-Temperature, CPratio, and Airflow, we are 95\% confident that the mean value for heat values of the gas turbines is within the interval (12157.9 , 13107.1)
+	}
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		The confidence interval for E(y) will always be narrower than the prediction interval because of the addition of one in the square root of the formula, therefore the confidence interval will always be narrower mathematically. 
+
+		\begin{equation}
+			Confidence \ Interval \ = \ \hat y \pm (t_{\alpha/2})s \sqrt{\frac{1}{n} + \frac{(x_p-\bar x)^2}{SS_{xx}}}
+		\end{equation}
+		and \\
+		\begin{equation}
+			Prediction \ Interval \ = \ \hat y \pm (t_{\alpha/2})s \sqrt{1 + \frac{1}{n} + \frac{(x_p-\bar x)^2}{SS_{xx}}}
+		\end{equation}
+
+	}
+\end{homeworkSection}
+
+
+
+\end{homeworkProblem}
+ %--------------------------------------------------------------
+ %Q 25
+ %--------------------------------------------------------------
+\begin{homeworkProblem}[Q25]
+
+	Removing oil from a water/oil mix. Refer to
+Exercise 4.14 (p. 189). The researchers concluded that in order to break a water–oil mixture with
+the lowest possible voltage, the volume fraction
+of the disperse phase (x 1 ) should be high, while
+the salinity (x 2 ) and the amount of surfactant
+(x 5 ) should be low.’’ Use this information and
+the first-order model of Exercise 4.14 to find a
+95\% prediction interval for this ‘‘low’’ voltage y.
+Interpret the interval.
+
+
+\begin{homeworkSection}{a}
+\problemAnswer{
+	${{H_{0}: \hat\beta_{1}=\hat\beta_{2}=\hat\beta_{3} =0}}$
+	\\
+	${{H_{a}: \hat\beta_{1}=\hat\beta_{2}=\hat\beta_{3} \neq0}}$
+	\\
+	F-value: 9.954
+	\\
+	p-value: 0.000735 $< \alpha \rightarrow$
+	\\
+	We can reject the notion that the model is invalid and treat the model as adequate. The ${{R^{2}_{adj}}}$ = 0.60, which means that the model can explain 60\% of the data. 
+	\newline
+	Referencing the the researchers conclusion, using a linear model based off of the voltage, volume disperse phase, salinity, and surfactant; and predicting from the maximum value of volume, and the minimum values of salinity and surfactant, we can be 95\% certain that the minimum predicted voltage in enclosed in the interval 
+	\newline
+	(-1.233442 , 1.03754)
+	\newline
+
+}
+\end{homeworkSection}
+\end{homeworkProblem}
+%------------------------------------------------
+% Q 33 
+%------------------------------------------------
+\begin{homeworkProblem}[Q 33]
+
+Removing oil from a water/oil mix. Refer to the
+Journal of Colloid and Interface Science study of
+water/oil mixtures, Exercise 4.14 (p. 189). Recall
+that three of the seven variables used to predict
+voltage (y) were volume (x 1 ), salinity (x 2 ), and
+surfactant concentration (x 5 ). The model the
+researchers fit is
+\newline
+$E(y)= \hat\beta_{0} + \hat\beta_{1}x_1 +\hat\beta_{2}x_2+\hat\beta_{3}x_5\hat \beta_{4}x_1x_2 +\hat\beta_{5}x_1x_5$
+
+\begin{homeworkSection}{a}
+\problemAnswer{
+	% TODO
+	Possible cases included: the combination of volume ${x_{2}}$ (40 ,80), and surface ${x_{5}}$ (2 ,4)  at all combinations of the fixed values, while leaving the Salinity to be variable over the values 1 to 4. 
+	\\
+	In all cases/pairs, the slope is affected by both variables. Comparing the pairs, we see that the slope does indeed change as the tuples change. The graph below superimposes the four cases and their graphs. 	
+	\includegraphics[scale = 0.4]{graphs/33a.png}
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+\problemAnswer{
+	The full first-order linear model of all the data categories has an F-value of 5.292 and an $R_{adj}^{2} = 0.6253$, while the interacting model has an F-value of 5.505 and an $R_{adj}^{2} = 0.5558$. There is not a substantial increase in the F-values, but the $R^{2}$ value drops by about 0.1. The quality of the model seems to increase slightly when treated as an interaction model, but the overall correlation goes down. 
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+
+
+
+	When looking at the interaction between predictors for the model
+        $$ E(y) = \hat\beta_{0} + \hat\beta_{1}x_{1} + \hat\beta_{2}x_{2} + \hat\beta_{3}x_{5} + \hat\beta_{4}x_{1}x_{2} + \hat\beta_{5}x_{1}x_{5}  $$
+
+        There are 4 cases present within the model that interact with $x_{1}$:
+
+        Case 1: where $x_{2}$ = 0, $x_{5}$ = 0,
+                $$ E(y) = \hat\beta_{0} + \hat\beta_{1}x_{1} $$
+
+        Case 2: where $x_{2}$ = 1, $x_{5}$ = 0,
+                $$ E(y) = \hat\beta_{0} + \hat\beta_{1}x_{1} + \hat\beta_{2}x_{2}  + \hat\beta_{4}x_{1}x_{2}   $$
+
+        Case 3: where $x_{2}$ = 0, $x_{5}$ = 1,
+                $$ E(y) = \hat\beta_{0} + \hat\beta_{1}x_{1} +\hat\beta_{3}x_{5} + \hat\beta_{5}x_{1}x_{5}  $$
+
+        Case 4: where $x_{2}$ = 1, $x_{5}$ = 1,
+                 $$ E(y) = \hat\beta_{0} + \hat\beta_{1}x_{1} +\hat\beta_{2}x_2 +\hat\beta_{3}x_{5} + \hat\beta_{5}x_{1}x_{5}  $$
+
+	}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+%-------------------------------------------------------
+%Q 42
+%-------------------------------------------------------
+\begin{homeworkProblem}[Q 42]
+
+In the Journal of Experimental Psychology: Learning, Memory,
+and Cognition (July 2005), University of Basel
+(Switzerland) psychologists tested the ability of
+people to judge risk of an infectious disease. The
+researchers asked German college students to
+estimate the number of people who are infected
+with a certain disease in a typical year. The
+median estimates as well as the actual incidence
+rate for each in a sample of 24 infections are
+provided in the table (p. 208). Consider the
+quadratic model, E(y) = β 0 + β 1 x + β 2 x 2 , where
+y = actual incidence rate and x = estimated rate.
+\newline
+(a) Fit the quadratic model to the data, then con-
+duct a test to determine if incidence rate is
+curvilinearly related to estimated rate. (Use
+α = .05.)
+\newline
+(b) Construct a scatter plot for the data. Locate
+the data point for Botulism on the graph.
+What do you observe?
+\newline
+(c) Repeat part a, but omit the data point for
+Botulism from the analysis. Has the fit of the
+model improved? Explain.
+
+	\begin{homeworkSection}{a}
+		\problemAnswer{
+		$E(y)={{\hat\beta_{0}+\hat\beta_{1}x_{1} + \hat\beta_{2}x_{1}^2}}$
+			$${{H_{0}: \hat\beta_1 = \hat\beta_{2} = 0}}$$
+				\\
+			$${{H_{0}: \hat\beta_1 \neq \hat\beta_{2} \neq 0}}$$
+				\\
+			the p-value for this F-test is 0.00158, which is below our threshold for rejection. 
+			\[
+				\alpha/2  =0.025 > 0.00158
+			\]
+
+			We reject $H_{0}$ and state that the model adequately represents the data. After this we can test for individual parameters and their impact on the model. 
+			\\
+				$H_0: \hat\beta_{1} = 0$
+			\\
+				$H_{a}: \hat\beta_{1} \neq 0$
+			\\
+			\[
+				pvalue_{x_{1}}= 0.706
+			\]
+				$H_0: \hat\beta_{2} = 0$
+			\\
+				$H_{a}: \hat\beta_{2} \neq 0$
+			\\
+			\[
+				pvalue_{x_{2}}= 0.722
+			\]
+			In both cases we find that the p-values are large and we fail to reject both null hypothesis, stating that neither the first or second order term does not accurately help depict the data. 
+			}
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{b}
+		\problemAnswer{
+		\includegraphics[scale=0.5]{graphs/42scat.png}
+		The point for Botulism is located on the bottom right of the graph at (37500, 15). This value throws off the regression pretty heavily. It is an extreme out lier in the dataset. 
+
+		}
+	\end{homeworkSection}
+
+	\begin{homeworkSection}{c}
+	\problemAnswer{
+		$E(y)={{\hat \beta_{0}+\hat \beta_{1}x_{1} + \hat \beta_{2}x_{1}^2}}$
+			$${{H_{0}: \hat \beta_1 = \hat \beta_{2} = 0}}$$
+				\\
+			$${{H_{a}: \hat \beta_1 \neq \hat \beta_{2} \neq 0}}$$
+				\\
+			the p-value for this F-test is $2.2\times10^{-16} $, which is below our threshold for rejection. 
+			\[
+				\alpha/2  =0.025 > 2.2\times10^{-16}
+			\]
+
+			We reject $H_{0}$ and state that the model adequately represents the data. After this we can test for individual parameters and their impact on the model. 
+			\[
+				H_0:\hat \beta_{1} = 0
+			\]			
+			\[
+				H_a: \hat\beta_{1} \neq 0
+			\]
+						\[
+				pvalue_{x_{1}}= 0.801
+			\]
+			\[
+				H_0: \hat\beta_{2} = 0
+			\]			
+			\[
+				H_a: \hat\beta_{2} \neq 0
+			\]
+			\[
+				pvalue_{x_{2}}= 1.62\times10^{-13}
+			\]
+			In the single order term, we find that the analysis has not changed. However, when looking at $\beta_{2}$, the p-value goes from 0.722 to ${{1.62\times 10^{-13}}}$. The ${{R^2_{adj}}}$ went from 0.4076 to 0.9958, therefore we have reason to keep the quadratic term in the model.
+			
+	}
+	\end{homeworkSection}
+
+
+\end{homeworkProblem}
+
+%---------------------------------------------
+% Q _
+%---------------------------------------------
+\begin{homeworkProblem}[Q 53]
+%Question material goes here
+Homework assistance for accounting students.
+The Journal of Accounting Education (Vol. 25,
+2007) published the results of a study designed
+to gauge the best method of assisting account-
+ing students with their homework. A total of 75
+accounting students took a pretest on a topic not
+covered in class, then each was given a home-
+work problem to solve on the same topic. The
+students were assigned to one of three home-
+work assistance groups. Some students received
+the completed solution, some were given check
+figures at various steps of the solution, and some
+received no help at all. After finishing the home-
+work, the students were all given a posttest on the
+subject. The dependent variable of interest was
+the knowledge gain (or test score improvement).
+These data are saved in the ACCHW file.
+\\
+\newline
+(a) Propose a model for the knowledge gain
+(y) as a function of the qualitative variable,
+homework assistance group.
+\\
+(b) In terms of the β’s in the model, give an
+expression for the difference between the mean knowledge gains of students in the
+‘‘completed solution’’ and ‘‘no help groups.’’ 
+\\
+(c) Fit the model to the data and give the least
+squares prediction equation.
+(d) Conduct the global F -Test for model utility
+using α = .05. Interpret the results, practically.
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+	Proposed model : 
+	\newline
+	$${{y=\hat\beta_{0}+\hat\beta_{1}x_{1}}}$$
+	\newline
+	equation with dummy variables
+	\newline
+	$${{\mu_{y|{x_{1}x_{2} }}}} = {{\hat\beta_{0}+\hat\beta_{1}x_{1}+\hat\beta_{2}x_{2}}}$$
+	\newline
+	In the proposed function, we have mapped the categorical variable $x_{1}$ into two new dummy variables. Then mapped the values in the dataset to conform to the new setup. Where ${{x_{1}}}$ = 1, iff the string in the original dataset is FULL, while ${{x_{2}}}$ = 1 iff the string in the original dataset is CHECKED. This maps the single categorical variable into two numerical dummy variables. 
+	\newline
+	${{\hat \beta_{0} = \hat \mu_{check}}}$
+	\\
+	${{\hat \beta_{1} = \hat \mu_{full} - \hat \mu_{check} }}$
+	\\
+	${{\hat \beta_{2} = \hat \mu_{no} - \hat \mu_check}}$
+	\\
+	When ${{x_{1},x_{2} = (1,1)}}$, or when the model has both a ${{\beta_{1} and \beta_{2} term}}$ the equation is equivalent to testing whether or not the means are equivalent.
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+	${{\hat\beta_{2} = \hat \mu_{full} - \hat \mu_{no}}}$
+	\\
+	\[
+		\hat \mu_{y_{|x_1=0,x_2=1}} = \hat\beta_{0} + \hat\beta_{2}x_{2}
+	\]
+	Is the expression for mean knowledge gains of the `completed solution' and `no help' groups.
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		\[
+			\hat y = \hat \beta_0 + \hat \beta_1x_1 + \hat \beta_2x_2
+		\]
+		\\
+		Least Squares Prediction Lines
+		\\
+		\[
+			\hat y = 2.720 -0.770x_1 -0.287x_2
+		\]
+		Where ${{(x_1, x_2)}}$ equates to (0,0) = ``CHECK'', (0,1) = ``FULL'', (1,0) = ``NO''
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{d}
+	\problemAnswer{
+	\[
+		H_{0}: \ \hat\mu_{no} =\hat \mu_{check}=\hat\mu_{full}= 0
+	\]	
+	\[
+		H_{a}: \ \hat\mu_{check} \neq \hat\mu_{full} \neq \hat\mu_{no} \neq 0
+	\]	
+	p-value for F-test : 0.637 
+	\\
+	F-value : 0.454 on d.f. = 72.
+	\\
+	Rejection threshold: $\alpha = 0.05$, $\alpha/2 = 0.025$
+	\\
+	$\alpha/2 < pvalue$ 
+	\\
+	Therefore we fail to reject the null hypothesis and state that the model is not adequately representing or fitting the data. The model is not accurate and we fail to conclude that the homework group assigned to a student has an effect on their test score improvement.
+	}
+\end{homeworkSection}
+	
+\end{homeworkProblem}
+
+%---------------------------------------------
+% Q 58
+%---------------------------------------------
+\begin{homeworkProblem}[Q 58]
+%Question material goes here
+Effectiveness of insect repellents. Which insect
+repellents protect best against mosquitoes? Con
+sumer Reports (June 2000) tested 14 products that
+all claim to be an effective mosquito repellent.
+Each product was classified as either lotion/cream
+or aerosol/spray. The cost of the product (in
+dollars) was divided by the amount of the repel
+lent needed to cover exposed areas of the skin
+(about 1/3 ounce) to obtain a cost-per-use value.
+Effectiveness was measured as the maximum
+number of hours of protection (in half-hour increments)
+ provided when human testers exposed
+their arms to 200 mosquitoes. The data from the
+report are listed in the table below.
+\newline
+(a) Suppose you want to use repellent type
+to model the cost per use (y). Create the
+appropriate number of dummy variables for
+repellent type and write the model.
+\newline
+(b) Fit the model, part a, to the data.
+\newline
+(c) Give the null hypothesis for testing whether
+repellent type is a useful predictor of cost per
+use (y).
+\newline
+(d) Conduct the test, part c, and give the appropriate conclusion. Use α = .10.
+\newline
+(e) Repeat parts a–d if the dependent variable is
+maximum number of hours of protection (y).
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+		\[
+			\hat\mu_{x_1 = (1,0)}= \hat\beta_{0}+\hat\beta_{1}x_{1}+\hat\beta_{2}x_{2}
+		\]
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+
+	\includegraphics[scale=0.35]{graphs/58a.png}
+	}
+	\[
+		\hat y = -0.05779 + 0.291 \hat\beta_1+0.110\hat \beta_2
+	\]
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		The test to see whether or not the method of the application of the repellent is helpful in determining the maximum protection time will be a T-test on the parameter $\hat \beta_{2}$
+		\[
+			H_{0}: \hat \beta_{2} = 0 
+		\]
+		\\
+		\[
+			H_{a}:\hat \beta_{2}\neq 0
+		\]
+		\\
+		This will allow us to see whether or not the type of applicator of the repellent is a useful predictor for the cost efficiency of the repellent. 
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{d}
+	\problemAnswer{
+	After testing for model adequacy in section a, with a p-value of 0.0004312, which is above our threshold for rejection; therefore we can proceed to testing for individual $\hat \beta$ validity. \\
+
+	Conducting the test proposed in section d yields a p-value of 0.246. \\
+	\[
+		\alpha = .10/2 = 0.05 < p-value 
+	\]
+	Therefore we fail to reject the null hypothesis and state that the repellent type is not a useful predictor of cost per use(y).
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{e}
+	\problemAnswer{
+		The proposed model for the data remains the same. Since there are 2 subcategories within Type, we only need to create k-1 (1) dummy variable(s). The only thing that changes is that the y and the x1 variables reverse.  
+		\[
+			\hat\mu_{x_1 = (1,0)}=\hat \beta_{0}+\hat\beta_{1}x_{1}+\hat\beta_{2}x_{2}
+		\]
+			\includegraphics[scale=0.35]{graphs/58b.png}
+		\newline
+		\[
+			H_{0}:\hat \beta_{2} = \hat\beta_{2} = 0 \\
+		\]
+		\[	
+			H_{a}: \hat\beta_{2} \neq \hat\beta_{2} \neq 0
+		\]
+	F-test yields a p-value of 0.00004025 which allows us to reject the null hypothesis and state that the model is adequate. 
+		\\
+		The test to see whether or not the method of the application of the repellent will be a T-test on the parameter $\hat \beta_{2}$
+		\[
+			H_{0}: \hat \beta_{2} = 0 
+		\]
+		\[
+			H_{a}:\hat \beta_{2}\neq 0
+		\]
+		The p-value for this new t-test to determine the usefulness of the repellent type is : 0.224, which is not considered small in relation to the threshold. We fail to reject the null hypothesis and determine that the type of the repellent is not useful in predicting the Hours of Protection. 
+	}
+\end{homeworkSection}
+
+
+
+\end{homeworkProblem}
+
+%---------------------------------------------
+% Q 64
+%---------------------------------------------
+\begin{homeworkProblem}[Q 64]
+%Question material goes here
+Cooling method for gas turbines. Refer to the
+Journal of Engineering for Gas Turbines and
+Power (January 2005) study of a high-pressure
+inlet fogging method for a gas turbine engine,
+Exercise 4.13 (p. 188). Consider a model for heat
+rate (kilojoules per kilowatt per hour) of a gas
+turbine as a function of cycle speed (revolutions
+per minute) and cycle pressure ratio. The data
+are saved in the GASTURBINE file.
+\\
+(a) Write a complete second-order model for
+heat rate (y).
+\\
+(b) Give the null and alternative hypotheses for
+determining whether the curvature terms in
+the complete second-order model are statistically useful for predicting heat rate (y).
+\\
+(c) For the test in part b, identify the ‘‘complete’’
+and ‘‘reduced’’ model.
+\\
+(d) Portions of the MINITAB printouts for the
+two models are shown below. Find the values
+of SSE R , SSE C , and MSE C on the printouts.
+\\
+(e) Compute the value of the test statistics for
+the test of part b.
+\\
+(f) Find the rejection region for the test of part
+b using α = .10.
+\\
+(g) State the conclusion of the test in the words
+of the problem.
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+	The complete second-order linear model of heat based on cycle speed ($x_1$) and cycle pressure ratio($x_2$)
+	\[
+		E(y) = \hat \beta_{0} + \hat \beta_{1}x_{1}+\hat \beta_{2}x_{2}+\hat \beta_{3}x_{1}x_{2}+\hat \beta_{4}x_{1}^2+\hat \beta_{5}x_2^2
+	\]
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+	Where $H_{0} is $
+		\[
+			H_0: \hat\beta_3=\hat\beta_{4}=\hat\beta_{5}=0
+		\]
+		\[
+			H_a: \hat\beta_3=\hat\beta_{4}=\hat\beta_{5}\neq0
+		\]
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		Full model : 
+		\\
+	\[
+		E(y) = \hat \beta_{0} + \hat \beta_{1}x_{1}+\hat \beta_{2}x_{2}+\hat \beta_{3}x_{1}x_{2}+\hat \beta_{4}x_{1}^2+\hat \beta_{5}x_2^2
+	\]
+	Reduced Model :
+	\[
+	 	E(y) = \hat \beta_{0} + \hat \beta_{1}x_{1}+\hat \beta_{2}x_{2}
+	\] 
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{d}
+	\problemAnswer{
+	From the Anova table in the text:
+		$SSE_R$ = 25310639 % 
+		\\
+		$SSE_C$ = 19370350 %
+		\\
+		$MSE_C$ = 317547 %
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{e}
+	\problemAnswer{
+		F = $\frac{(SSE_R -SSE_C)/(\# of \beta parameters)}{
+		MSE_C}= \frac{(25310639 - 19370350)/3}{317547}=6.235601$
+		\\
+		p-value = 0.000696
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{f}
+	\problemAnswer{
+		Using alpha = 0.10, the rejection region interval is \[
+			(\infty, -2.18 )\cup (2.18, \infty)
+		\]	
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{g}
+	\problemAnswer{
+		The value from the F-test was 6.236, which had a p-value of 0.000696. 6.236 falls within the rejection region from part f. 0.000696 $<$0.05, therefore we reject the null hypothesis and state that the second order term coefficients are not equal to zero. Therefore the second-order terms contribute to the functioning model. In a model for heat rate (kilojoules per kilowatt per hour) of a gas turbine as a function of cycle speed (revolutions per minute) and cycle pressure ratio for a new inlet fogging procedure for turbines, 
+	}
+\end{homeworkSection}
+	
+
+\end{homeworkProblem}
+
+
+\end{document}

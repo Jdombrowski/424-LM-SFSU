@@ -1,0 +1,611 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{verbatim}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily,
+  escapeinside=||
+}
+% Margins
+\topmargin=-0.45in{}
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+
+% PROBLEM 8
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment\ \# 4 \ Chapter 5} % Assignment title
+\newcommand{\hmwkDueDate}{Monday,\ October\ 23,\ 2017} % Due date
+\newcommand{\hmwkClass}{MATH\ 424} % Course/class
+\newcommand{\hmwkClassTime}{11:10am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Kafai} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Jonathan Dombrowski} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+Problem numbers	8, 16, 22, 26, 34
+%---------------------------------------------
+% Q8
+%---------------------------------------------
+\begin{homeworkProblem}[Q8 ]
+%Question material goes here
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+	The scatterplots and the respective predicted formulas are as follows
+	\\
+	\includegraphics[scale =0.5]{graphs/8-1.png}
+	${{\hat y = \hat\beta_{0} + \hat\beta_{1}}x_{rpm}}$
+
+	\includegraphics[scale =0.5]{graphs/8-2.png}
+	${{\hat y =\hat\beta_{0} - \hat\beta_{1}x_{inlettemp}}}$
+}
+\newpage
+\problemAnswer{
+	\includegraphics[scale =0.5]{graphs/8-3.png}
+	${{\hat y =\hat\beta_{0} - \hat\beta_{1}x_{exhtemp}}}$, although the correlation seems weak at best. 
+
+	\includegraphics[scale =0.5]{graphs/8-4.png}
+	${{\hat y =\hat\beta_{0} - \hat\beta_{1}x_{cpratio}- \hat\beta_{2}x_{cpratio}^{2}}}$
+
+	\includegraphics[scale =0.2]{graphs/8-5.png}
+	${{\hat y =\hat\beta_{0} - \hat\beta_{1}x_{airflow}- \hat\beta_{2}x_{airflow}^{2}}}$
+	\\
+	The hypothesized full equation is \[
+	E(y)=\hat\beta_0+\hat\beta_{1}x_{rpm}-\hat\beta_2x_{inlettemp} +\hat\beta_3x_{exhtemp}-\hat\beta_4x_4-\hat\beta_5x_{cpratio}-\hat\beta_6x_{cpratio}^2-\hat\beta_7x_{airflow}-\hat\beta_8x_{airflow}^2	\]
+}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%---------------------------------------------
+% Q 16
+%---------------------------------------------
+\newpage
+\begin{homeworkProblem}[Q 16]
+%Question material goes here
+Earnings of Mexican street vendors. Refer to
+the World Development (February 1998) study
+of street vendors in the city of Puebla, Mex-
+ico, Exercise 4.6 (p. 184). Recall that the vendors’
+mean annual earnings, E(y), was modeled as a first-
+order function of age (x 1 ) and hours worked (x 2 ).
+The data for the study are reproduced in the table.
+\\
+(a) Write a complete second-order model for
+mean annual earnings, E(y), as a function of
+age (x 1 ) and hours worked (x 2 ).
+\\
+(b) The model was fit to the data using MINITAB.
+Find the least squares prediction equation on
+the accompanying printout (bottom, p. 280).
+\\
+(c) Is the model statistically useful for predicting
+annual earnings? Test using α = .05.
+\\
+(d) How would you test the hypothesis that the
+second-order terms in the model are not
+necessary for predicting annual earnings?
+\\
+(e) Carry out the test, part d. Interpret the results.
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+	The complete second order model for age($x_1$) and hours worked($x_{2}$) is 
+	\[
+	E(y) = \hat\beta_{0} +\hat\beta_1x_1+\hat\beta_2x_2+\hat\beta_3x_1x_2+\hat\beta_4x_1^2+\hat\beta_5x_2^2
+	\]
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+	The least squares approximation for the model as seen from the MINITAB output is 
+	\[
+		E(y)= 606+120x_1 - 140x_2+2.66x_1x_2-1.57x_1^2+8.1x_2^2
+	\]
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		Testing for whether or not the given model is useful for predicting annual earnings of Mexican Street vendors based off of age$x_{1}$ and hours worked($x_2$)\\
+		${{H_{0}: \hat\beta_1 = \hat\beta_2 = .. = \hat\beta_5 = 0}}$
+		\\
+		${{H_{a}: \hat\beta_1 , \hat\beta_2 , .. , \hat\beta_5 \neq 0}}$
+		\\
+		Results from this f-test are as follows:\\
+		F-test value: 5.59\\
+		p-value: 0.013\\
+		Using $\alpha$ = 0.05, we can say that the F-score lands in the rejection region and we can say that the model is statistically useful in describing ${{R_{adj}^{2}=0.621}}\approx 62.1\%$ of the data points.
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{d}
+	\problemAnswer{
+		The test to determine the necessity of the second degree terms is :
+		\[
+			H_0 : \hat\beta_3 = \hat\beta_4 = \hat\beta_5 = 0
+		\]
+		\[
+			H_a : \hat\beta_3 , \hat\beta_4 , \hat\beta_5 \neq 0			
+		\] 
+		\\
+		If the null hypothesis is rejected, then individual testing of the beta's can commence, with sequential t-tests for each beta value.
+	}
+\end{homeworkSection}
+\newpage
+\begin{homeworkSection}{e}
+	\problemAnswer{
+		The results from the nested F-test (anova test in R), yield an F:value of 2.148, and a p:value of 0.164. This does not fall within our rejection region using $\alpha = 0.05$, therefore we cannot reject the null hypothesis. We can conclude that the model for predicting the earnings of mexican street vendors using hours worked and age is \emph{not} quadratic and only linear. It is not necessary for the model to be second order. 
+	}
+\end{homeworkSection}
+%--------------------------------------------------------
+\begin{lstlisting}
+Analysis of Variance Table
+
+Model 1: earnings ~ age + hours + I(age * hours) + I(age^2) + I(hours^2)
+Model 2: earnings ~ age + hours
+  Res.Df     RSS Df Sum of Sq      F Pr(>F)
+1      9 2098183                           
+2     12 3600196 -3  -1502013 |\colorbox{magenta!30}{2.1476 0.1642}|
+\end{lstlisting}
+
+\end{homeworkProblem}
+
+
+%---------------------------------------------
+% Q 22
+%---------------------------------------------
+\begin{homeworkProblem}[Q 22]
+%Question material goes here
+Failure times of silicon wafer microchips. Refer
+to the National Semiconductor experiment with
+tin-lead solder bumps used to manufacture sili-
+con wafer integrated circuit chips, Exercise 4.40 (p. 207) Recall that the failure times of the
+microchips (in hours) was determined at differ-
+ent solder temperatures (degrees Centigrade).
+The data are reproduced in the table (p. 287).
+The researchers want to predict failure time
+(y) based on solder temperature (x) using the
+quadratic model, E(y) = β 0 + β 1 x + β 2 x 2 . First,
+demonstrate the potential for extreme round-off
+errors in the parameter estimates for this model.
+Then, propose and fit an alternative model to the
+data, one that should greatly reduce the round-off
+error problem.
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+	Fitting the intial model to the dataset yields a regression equation of 
+	\[
+		E(y) = 154242.9 -1908.8x_1+5.929x_1^2
+	\]	
+	\\
+	While fitting the normalized model with the values of temperature mapped between (-2,2), the regression equation is : 
+	\[
+		E(y) = 1900.1 -2275.7x_1+997.9x_1^2
+	\]
+	The values are very different, but that is to be expected. Both F-test and p-values stay exactly the same at F:152.9 , p:1.937e-12, however the only thing of note that changes in regards to tests is that t-test value on the linear term $\hat\beta_{1}$ doubles from 6.286 to 14.716. In this case, since the values of the initial data are fairly low to begin with, the threat of rounding errors is also fairly low. When values are larger, the possibility for $x$ and $x^2$ disparity grows as well. On a small level, this demonstrates the capacity to help reduce rounding errors. When the values are larger, there is the high possbility of changing the t-values to more significant ones by scaling and centering the data. The significance states of either of the two betas in either of the two models does not change in this exercise, but in others where the data values are higher, the difference may take the beta from a state of insignificance to one fo signifincance. 
+	
+	%-----------------------------------------------
+	
+	% 	 If x_1 and x_2 are colinnear and they are really large, the squared value will have a drastically larger magnitudes, and that is where the possibility of round off errors can occur. Do anova test to see beta1 and beta 2 
+	% example is Q4.64
+	 
+	}
+	\begin{lstlisting}
+
+		lm(formula = failtime ~ (temp) + I((temp)^2))
+
+		Residuals:
+		     Min       1Q   Median       3Q      Max 
+		-1260.49  -475.70   -15.57   528.45  1131.69 
+
+		Coefficients:
+		              Estimate Std. Error t value Pr(>|t|)    
+		(Intercept) 154242.914  21868.474   7.053 1.03e-06 ***
+		temp         -1908.850    303.664 |\colorbox{magenta!30} {   -6.286  \   4.92e-06 ***}|
+		I((temp)^2)      5.929      1.048   5.659 1.86e-05 ***
+		---
+		Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		Residual standard error: 688.1 on 19 degrees of freedom
+		Multiple R-squared:  0.9415,	Adjusted R-squared:  0.9354 
+		F-statistic: 152.9 on 2 and 19 DF,  p-value: 1.937e-12
+    \end{lstlisting}
+Now looking at the scaleled model: \\
+    \begin{lstlisting}
+		    lm(formula = failtime ~ scale(temp) + I(scale(temp)^2))
+
+		Residuals:
+		     Min       1Q   Median       3Q      Max 
+		-1260.49  -475.70   -15.57   528.45  1131.69 
+
+		Coefficients:
+		                 Estimate Std. Error t value Pr(>|t|)    
+		(Intercept)        1900.1      223.2   8.512 6.60e-08 ***
+		scale(temp)       -2275.7      154.6 |\colorbox{magenta!30}{  -14.716  7.70e-12 ***}|
+		I(scale(temp)^2)    997.6      176.3   5.659 1.86e-05 ***
+		---
+		Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+		Residual standard error: 688.1 on 19 degrees of freedom
+		Multiple R-squared:  0.9415,	Adjusted R-squared:  0.9354 
+		F-statistic: 152.9 on 2 and 19 DF,  p-value: 1.937e-12
+    \end{lstlisting}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%---------------------------------------------
+% Q 26
+%---------------------------------------------
+\newpage
+\begin{homeworkProblem}[Q 26]
+%Question material goes here
+Milk production of shaded cows. Because of
+the hot, humid weather conditions in Florida, the
+growth rates of beef cattle and the milk produc-
+tion of dairy cows typically decline during the
+summer. However, agricultural and environmen-
+tal engineers have found that a well-designed shade
+structure can significantly increase the milk pro-
+duction of dairy cows. In one experiment, 30 cows
+were selected and divided into three groups of
+10 cows each. Group 1 cows were provided with a
+man-made shade structure, group 2 cows with tree
+shade, and group 3 cows with no shade. Of interest
+was the mean milk production (in gallons) of the
+cows in each group.
+(a) Identify the independent variables in
+the experiment.
+(b) Write a model relating the mean milk pro-
+duction, E(y), to the independent variables.
+Identify and code all dummy variables.
+(c) Interpret the β parameters of the model.
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+	The independent variable in this experiment is the ShadeType. Which can be divided into two dummy variables. $\hat\beta_{1}$ and $\hat\beta_{2}$, in this case will signify man-made shade and tree shade respectively.  
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+		The proposed model is 
+		\[
+			E(y) = \hat\beta_0 + \hat\beta_1x_1+\hat\beta_2x_2
+		\]
+		Where $x_1$ corresponds to the coded dataset for man made shade and $x_2$ corresponds to the coded dataset for tree shade. When both $x_1$ and $x_2$ are equal to zero, the base case is representative of the case of no shade.
+		\\
+		\begin{equation}x_{1} = \left\{
+		\begin{array}{@{}rl@{}}
+		\text{1:} & \text{if man-made shade}\\    
+		\text{0:} & \text{if not}\\
+		\end{array}
+		\right .
+		\end{equation}    
+
+		\begin{equation}x_{2} = \left\{
+		\begin{array}{@{}rl@{}}
+		\text{1:} & \text{if Tree shade}\\    
+		\text{0:} & \text{if not}\\
+		\end{array}
+		\right .
+		\end{equation}   
+
+		\[
+			\mu_{no \ shade} = \hat\beta_0
+		\]
+		\[
+			\mu_{man-made} = \hat\beta_0 + \hat\beta_1
+		\]
+		\[
+			\mu_{tree} = \hat\beta_0 + \hat\beta_2
+		\]
+			
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		\[
+			\hat\beta_0 = \mu_{no \ shade} 
+		\]
+		\[
+			\hat\beta_1 = \mu_{man-made} -\mu_{no \ shade}  
+		\]
+		\[
+			\hat\beta_2 = \mu_{tree} -\mu_{no \ shade}  
+		\]
+	}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%---------------------------------------------
+% Q 34
+%---------------------------------------------
+\newpage
+\begin{homeworkProblem}[Q 34 ]
+%Question material goes here
+Cooling method for gas turbines. Refer to the
+Journal of Engineering for Gas Turbines and
+Power (January 2005) study of a high-pressure inlet
+fogging method for a gas turbine engine, Exercise
+5.19 (p. 281). Recall that you analyzed a model for
+heat rate (kilojoules per kilowatt per hour) of a gas
+turbine as a function of cycle speed (revolutions
+per minute) and cycle pressure ratio. Now consider
+a qualitative predictor, engine type, at three levels
+(traditional, advanced, and aeroderivative).
+\\
+(a) Write a complete second-order model for heat
+rate (y) as a function of cycle speed, cycle
+pressure ratio, and engine type.
+\\
+(b) Demonstrate that the model graphs out as
+three second-order response surfaces, one for
+each level of engine type.
+\\
+(c) Fit the model to the data in the GASTUR-
+BINE file and give the least squares prediction
+equation.
+\\
+(d) Conduct a global F -test for overall model
+adequacy.
+\\
+(e) Conduct a test to determine whether the
+second-order response surface is identical for
+each level of engine type.
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+		\begin{equation}x_{3} = \left\{
+		\begin{array}{@{}rl@{}}
+		\text{1:} & \text{if advanced}\\    
+		\text{0:} & \text{if not}\\
+		\end{array}
+		\right .
+		\end{equation}   
+		\\
+		\begin{equation}x_{4} = \left\{
+		\begin{array}{@{}rl@{}}
+		\text{1:} & \text{if aeroderivative}\\    
+		\text{0:} & \text{if not}\\
+		\end{array}
+		\right .
+		\end{equation}  
+		base = traditional engine type.
+		\\
+		The proposed second order model is :
+		\[
+			E(y)= \hat\beta_0 + \hat\beta_1x_1+\hat\beta_2x_2 + \hat\beta_3x_1x_2+ \hat\beta_4x_1^2+\hat\beta_5x_1^2 +\hat\beta_6x_3 + \hat\beta_7x_4
+		\]
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+	Even after collaboration with other students, there was significant difficulty in getting the surface plot diagram to function correctly. Interpreting the graphs that I have successfully created yields that in all places, the advanced engine will have the lowest heatrate, and the traditional engine will have the highest. 
+		\includegraphics[scale=0.35]{graphs/34-a.png}
+		\includegraphics[scale=0.35]{graphs/34b.png}
+		\includegraphics[scale=0.35]{graphs/34c.png}
+	}
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+\problemAnswer{
+	The least squares approximation given by fitting the model to the data given by the readout is
+	\[
+		E(y)=14310
+		+1.212x_{1}
+		-421.1x_{2}
+		+9.100\times 10^{-4}x_{3}
+		-2.277\times10^{-7}x_{4}
+		+7.111x_{5}
+		+344.6x_{6}
+		-235.8 x_7{}
+	\]
+	}
+	\end{homeworkSection}
+
+\begin{homeworkSection}{d}
+	\problemAnswer{
+		F-test for model adequacy:
+		\[
+			H_0:\hat\beta_1=\hat\beta_2 = \ldots = \hat\beta_7=0
+		\]
+		\[
+			H_a:\hat\beta_1,\hat\beta_2 ,\ldots , \hat\beta_7\neq0
+		\]
+		From the R-readout appended below, the F-value: 68.59, and the p-value is below 2.2e-16. Therefore we can reject the null hypothesis and state that the model is statistically significant in the prediction of Heat Rate of the Gas Turbines. 		
+	}
+	\end{homeworkSection}
+\begin{homeworkSection}{e}
+	\problemAnswer{
+	Now that the model is deemed statistically significant, we can test to see if the model necessarily needs to be second order. 
+		\[	
+			H_0: \hat\beta_3=\hat\beta_4 = \hat\beta_5 = 0
+		\]
+		\[	
+			H_a: \hat\beta_3,\hat\beta_4 ,\hat\beta_5 \neq 0
+		\]
+		From the nested F-test (anova-test in R) readout below, the F-value = 4.597, p-value = 0.0013. Therefore the p-value is within our rejection region and therefore we can reject $H_0$ and state that there is statistic evidence to keep the model second order. We can conclude that at least one of the second order terms is statistically significant in estimating heatrate. 
+	}
+	\end{homeworkSection}
+	
+		Full model test
+		\begin{lstlisting}
+	Call:
+lm(formula = heatrate ~ rpm + cpratio + I(rpm * cpratio) + I(rpm^2) + 
+    I(cpratio^2) + engineAdv + engineAero)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1242.2  -313.8   -97.7   292.2  1863.4 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       1.431e+04  1.404e+03  10.188 1.27e-14 ***
+rpm               1.212e-01  1.145e-01   1.059  0.29387    
+cpratio          -4.211e+02  1.240e+02  -3.395  0.00123 ** 
+I(rpm * cpratio)  9.100e-04  6.045e-03   0.151  0.88086    
+I(rpm^2)         -2.277e-07  2.016e-06  -0.113  0.91042    
+I(cpratio^2)      7.111e+00  2.547e+00   2.791  0.00706 ** 
+engineAdv0        3.446e+02  2.048e+02   1.682  0.09777 .  
+engineAero1      -2.358e+02  2.899e+02  -0.813  0.41930    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 558.3 on 59 degrees of freedom
+|\colorbox{magenta!30}{Multiple R-squared:  0.8905,	Adjusted R-squared:  0.8775 }|
+|\colorbox{magenta!30}{F-statistic: 68.53 on 7 and 59 DF,  p-value: < 2.2e-16}|
+	\end{lstlisting}
+	Nested F-test
+	\begin{lstlisting}
+	Analysis of Variance Table
+
+Model 1: heatrate ~ rpm + cpratio
+Model 2: heatrate ~ rpm + cpratio + I(rpm * cpratio) + I(rpm^2) + I(cpratio^2) + 
+    engineAdv + engineAero
+  Res.Df      RSS Df Sum of Sq     F   Pr(>F)   
+1     64 25553200                               
+2     59 18389213  5   7163986 |\colorbox{magenta!30}{4.597 0.001313 **}|
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+	\end{lstlisting}
+
+\end{homeworkProblem}
+
+\end{document}
