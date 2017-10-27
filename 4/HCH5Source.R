@@ -57,14 +57,14 @@
 #Q 26
 
 # # #Q 34
-# load("GASTURBINE.Rdata")
-# View(GASTURBINE)
-# rpm <- GASTURBINE$RPM
-# cpratio <- GASTURBINE$CPRATIO
-# inlettemp <- GASTURBINE$INLETTEMP
-# exhtemp <- GASTURBINE$EXHTEMP
-# airflow <- GASTURBINE$AIRFLOW
-# heatrate <-  GASTURBINE$HEATRATE
+load("GASTURBINE.Rdata")
+View(GASTURBINE)
+rpm <- GASTURBINE$RPM
+cpratio <- GASTURBINE$CPRATIO
+inlettemp <- GASTURBINE$INLETTEMP
+exhtemp <- GASTURBINE$EXHTEMP
+airflow <- GASTURBINE$AIRFLOW
+heatrate <-  GASTURBINE$HEATRATE
 # engine <- GASTURBINE$ENGINE
 # levels(engine)
 # engineAdv = engineAero = engine
