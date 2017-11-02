@@ -1,0 +1,84 @@
+---
+title: "Chapter 6"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+loading data into R from .txt file, for readability in the future, they will coded to y, and x1 ~ x5
+```{r}
+data =read.table("HCH6Data.txt", header = FALSE)
+y= data$V1
+x1 = data$V2
+x2 = data$V3
+x3 = data$V4
+x4 = data$V5
+x5 = data$V6
+```
+1. Write-up, in detail, the steps taken to do the following regressions in model building. Make sure you clearly state the CRITERIA for model selection.
+a) Stepwise selection
+b) Mallow’s Cp selection
+
+2. Use the HW6.txt data and your answers to question 1 on how SAS/R is proceeding with the model selection for question 1, parts a, and b.  The provided data set has the following variables, $y, x_1, x_2, x_3, x_4, \text{and } x_5.$
+
+1.a StepWise
+The StepWise method requires starting with a y, and then creating models with $y|x_i$ for $\forall i \in n$, where n is the number of predictors. 
+
+After creating models, you test each beta as follows:
+$H_0:\hat\beta_1 = 0$
+$H_a:\hat\beta_1 \neq 0$
+with $\alpha=0.15$ for inputting and removing a term. After completing the tests, the $\hat\beta_i$ with the highest passing t-value is the one to be selected and to seed the next iteration of regressions, we will call this $\hat\beta_1$. If no value passes, life is easy, quit and go home. 
+
+After finding the most statistically significant term you will then use it for the base of the next iteration, and one by one, creating new models and appending the remaining terms to the model, respectively. After performing the exact same t-test as mentioned in the previous step, and get a subset of x's with t-values that produce rejections for the second added term, which we will call $\hat\beta_2$. Before continuing the iterations and moving on to the next regressions, we test $\hat\beta_1$ with the same criteria. to ensure that adding the possible $\hat\beta_2$ does not adversely affect $\hat\beta_1$. If all of the $\hat\beta_2$ candidates fail to reject, then the model is complete and we can stop without adding $\hat\beta_2$. The third case is that there is one or more $\hat\beta_2$ candidates, which is to say that they rejected the null hypothesis, yet the tests on the $\hat\beta_1$ retest failed. In this case, we remove the $x_1$ term from the model and retry the previous step with the next most-likely candidate.
+
+This last process repeats until there are either no ore terms, or the stopping clause of no more terms satisfy the requirements of having a t-value that rejects the null hypothesis at $\alpha = 0.15$
+
+
+1.b The first portion of the Stepwise method is deciding the single variable in which to start the regression. This is accomplished by making separate models for each of the variables, being the sole predictor for Y. Then a t-test is carried out to determine the most accurate one to begin. The largest t-value is chosen in this step, given that it surpasses the threshold for adding a term. The threshold for adding/removing a term here is alpha = 0.15. We use a high threshhold in order to avoid Type 2 errors.
+```{r}
+m1 = lm(y~x1)
+m2 = lm(y~x2)
+m3 = lm(y~x3)
+m4 = lm(y~x4)
+m5 = lm(y~x5)
+summary(m1)[["coefficients"]][, "t value"]
+summary(m2)[["coefficients"]][, "t value"]
+summary(m3)[["coefficients"]][, "t value"]
+summary(m4)[["coefficients"]][, "t value"]
+summary(m5)[["coefficients"]][, "t value"]
+summary(m1)
+```
+In this iteration, the highest t-value is x1, with 
+t-value: 7.74
+pvalue:  2.00e-08
+
+Using this variable for the next step, the alogorithm will create two term, first order models for the combination of x1 and the other variables, completing a t-test each time for x1 and xi. We will then check for both valid t-scores for xi. 
+```{r}
+m1=lm(y~x1 +x2)
+m2=lm(y~x1 +x3)
+m3=lm(y~x1 +x4)
+m4=lm(y~x1 +x5)
+summary(m1)[["coefficients"]][, "t value"]
+summary(m2)[["coefficients"]][, "t value"]
+summary(m3)[["coefficients"]][, "t value"]
+summary(m4)[["coefficients"]][, "t value"]
+summary(m3)
+```
+In this case, the highest t-score was x3 with t-value: 1.571, and p:0.128. The p-value falls within the rejection value and therefore, we can test x1 for its' beta value. The t-score had a value of 5.43, with a pvalue of 9.57e-06, so we can fully accept x1, x3 as being factors in this regression, and proceed to the next step; which is taking the model y ~ x1 + x3 and append/ test the other variables to the end of it.
+```{r}
+m1=lm(y~x1 + x3 + x2)
+m2=lm(y~x1 + x3 + x4)
+m3=lm(y~x1 + x3 + x5)
+summary(m1)[["coefficients"]][, "t value"]
+summary(m2)[["coefficients"]][, "t value"]
+summary(m3)[["coefficients"]][, "t value"]
+m1 = lm(y~x1+x3)
+summary(m1)
+```
+In this case, none of the added x's(2,4,5) had a t-test value below the threshold of alpha = 0.15, therefore the model is complete.
+
+Checking the output of the step by step Stepwise algorithm vs. the R-interpretation
+```{r}
+mfull <- lm(y~x1+x2+x3+x4+x5)
+step(mfull, direction = "both")
+```

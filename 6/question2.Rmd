@@ -1,0 +1,130 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r}
+setwd("~/Documents/SFSU.FALL.2017/424/HW/6")
+
+hwdata =read.table("HCH6Data.txt", header = FALSE)
+y=  hwdata$V1
+x1 = hwdata$V2
+x2 = hwdata$V3
+x3 = hwdata$V4
+x4 = hwdata$V5
+x5 = hwdata$V6
+```
+MAllows cp method
+
+```{r}
+library(leaps)
+cpMeth <- regsubsets(V1~., data = hwdata, nbest =1,method = "exhaustive")
+cpMeth.summary = summary(cpMeth)
+plot(cpMeth.summary$cp, type = "b" ,xlab="number of variables", ylab = "Cp value")
+cpMeth.summary$cp
+```
+Manual portion
+```{r}
+mt = lm(y1~x1+x2+x3+x4+x5)
+m1 = lm(y1 ~ x1)
+m2 = lm(y1 ~ x2)
+m3 = lm(y1 ~ x3)
+m4 = lm(y1 ~ x4)
+m5 = lm(y1 ~ x5)
+summary(m1)
+summary(m2)
+summary(m3)
+summary(m4)
+summary(m5)
+```
+
+```{r}
+MSE=(summary(mt)$sigma)^2
+"Number of Var,   Cp Stat"
+"Step 1 : Single Variable Models"
+m1 = lm(y~x1)
+m2 = lm(y~x2)
+m3 = lm(y~x3)
+m4 = lm(y~x4)
+m5 = lm(y~x5)
+extractAIC(m1,scale=MSE)
+extractAIC(m2,scale=MSE)
+extractAIC(m3,scale=MSE)
+extractAIC(m4,scale=MSE)
+extractAIC(m5,scale=MSE)
+"Step 2 : Two Variable Models"
+m1 = lm(y~x1 + x2)
+m2 = lm(y~x1 + x3)
+m3 = lm(y~x1 + x4)
+m4 = lm(y~x1 + x5)
+m5 = lm(y~x2 + x3)
+m6 = lm(y~x2 + x4)
+m7 = lm(y~x2 + x5)
+m8 = lm(y~x3 + x4)
+m9 = lm(y~x3 + x5)
+m10 = lm(y~x4 + x5)
+extractAIC(m1,scale=MSE)
+extractAIC(m2,scale=MSE)
+extractAIC(m3,scale=MSE)
+extractAIC(m4,scale=MSE)
+extractAIC(m5,scale=MSE)
+extractAIC(m6,scale=MSE)
+extractAIC(m7,scale=MSE)
+extractAIC(m8,scale=MSE)
+extractAIC(m9,scale=MSE)
+extractAIC(m10,scale=MSE)
+"Step 3 : Three Variable Models"
+m1 = lm(y~x1 + x2 + x3)
+m2 = lm(y~x1 + x2 + x4)
+m3 = lm(y~x1 + x2 + x5)
+m4 = lm(y~x1 + x3 + x4)
+m5 = lm(y~x1 + x3 + x5)
+m6 = lm(y~x1 + x4 + x5)
+m7 = lm(y~x2 + x3 + x4)
+m8 = lm(y~x2 + x3 + x5)
+m9 = lm(y~x2 + x4 + x5)
+m10 = lm(y~x3 + x4 + x5)
+extractAIC(m1,scale=MSE)
+extractAIC(m2,scale=MSE)
+extractAIC(m3,scale=MSE)
+extractAIC(m4,scale=MSE)
+extractAIC(m5,scale=MSE)
+extractAIC(m6,scale=MSE)
+extractAIC(m7,scale=MSE)
+extractAIC(m8,scale=MSE)
+extractAIC(m9,scale=MSE)
+extractAIC(m10,scale=MSE)
+"The minimum value calculated is not lower than the previous step, so we can stop"
+"For sake of being verbose, we will calculate the other values"
+"Step 4 : Four Variable Models"
+m1 = lm(y~x1 + x2 + x3 +x4)
+m2 = lm(y~x1 + x2 + x3 +x5)
+m3 = lm(y~x1 + x2 + x4 +x5)
+m4 = lm(y~x1 + x3 + x4 +x5)
+m5 = lm(y~x2 + x3 + x4 +x5)
+extractAIC(m1,scale=MSE)
+extractAIC(m2,scale=MSE)
+extractAIC(m3,scale=MSE)
+extractAIC(m4,scale=MSE)
+extractAIC(m5,scale=MSE)
+"Step 5"
+m1 = lm(y~x1 + x2 + x3 + x4 +x5)
+extractAIC(m1 , scale = MSE)
+"summary"
+"best model with respect to Cp Value"
+"y~x1+x3"
+m1 = lm(y~x1 + x3)
+summary(m1)
+extractAIC(m1, scale = MSE)
+```
+As we can see, the lowest scoring Cp statistic is the model 
+
+```{r}
+model = lm(V1~.-V1, data=hwdata)
+ols_all_subset(model)
+k = ols_all_subset(model)
+plot(k)
+
+```
+
+
