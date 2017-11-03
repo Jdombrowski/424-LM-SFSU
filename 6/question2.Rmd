@@ -120,6 +120,7 @@ extractAIC(m1, scale = MSE)
 As we can see, the lowest scoring Cp statistic is the model 
 
 ```{r}
+library(olsrr)
 model = lm(V1~.-V1, data=hwdata)
 ols_all_subset(model)
 k = ols_all_subset(model)
