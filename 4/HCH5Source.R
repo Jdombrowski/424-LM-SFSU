@@ -2,13 +2,13 @@
 #Dombrowski HCH5 R Source code
 
 # # Q 8
-# load("GASTURBINE.Rdata")
-# rpm <- GASTURBINE$RPM
-# cpratio <- GASTURBINE$CPRATIO
-# inlettemp <- GASTURBINE$INLETTEMP
-# exhtemp <- GASTURBINE$EXHTEMP
-# airflow <- GASTURBINE$AIRFLOW
-# heatrate <-  GASTURBINE$HEATRATE
+load("GASTURBINE.Rdata")
+rpm <- GASTURBINE$RPM
+cpratio <- GASTURBINE$CPRATIO
+inlettemp <- GASTURBINE$INLETTEMP
+exhtemp <- GASTURBINE$EXHTEMP
+airflow <- GASTURBINE$AIRFLOW
+heatrate <-  GASTURBINE$HEATRATE
 
 # plot(heatrate~rpm, main = "Q8 HeatRate vs. RPM for model building")
 # plot(heatrate~inlettemp, main = "Q8 HeatRate vs. inletTemperature for model building")
