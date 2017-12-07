@@ -1,0 +1,187 @@
+---
+title: "HCH6"
+output: html_notebook
+---
+setup
+
+
+Jonathan Dombrowski 
+Math 424
+
+Question 6
+
+Characteristics of sea ice melt ponds. Surface
+albedo is defined as the ratio of solar energy
+directed upward from a surface over energy inci-
+dent upon the surface. Surface albedo is a critical
+climatological parameter of sea ice. The National
+Snow and Ice Data Center (NSIDC) collects data
+on the albedo, depth, and physical characteristics
+of ice melt ponds in the Canadian Arctic, includ-
+ing ice type (classified as first-year ice, multiyear
+ice, or landfast ice). Data for 504 ice melt ponds
+located in the Barrow Strait in the Canadian Arctic
+are saved in the PONDICE file. Environmental
+engineers want to model the broadband surface
+albedo level, y, of the ice as a function of pond
+depth, x 1 (meters), and ice type, represented by the
+dummy variables x 2 = {1 if first-year ice, 0 if not}
+and x 3 = {1 if multiyear ice, 0 if not}. Ultimately,
+the engineers will use the model to predict the
+surface albedo level of an ice melt pond. Access the
+data in the PONDICE file and identify the experi-
+mental region for the engineers. What advice do you
+give them about the use of the prediction equation?
+
+
+```{r}
+y = PONDICE$broadbandalb
+x1 = PONDICE$depth
+x2 = PONDICE$icetype
+
+t1 = subset(PONDICE, icetype ==1 )
+t2 = subset(PONDICE, icetype ==2 )
+t3 = subset(PONDICE, icetype ==3 )
+
+min(t1$depth)
+max(t1$depth)
+min(t2$depth)
+max(t2$depth)
+min(t3$depth)
+max(t3$depth)
+```
+
+
+
+
+VIF
+```{r}
+library(usdm)
+temp = factor(PONDICE$icetype)
+levels(temp) = c("not","1stYear","multiYear") 
+PONDICE$icetype.f = factor(PONDICE$icetype)
+test = data.frame(PONDICE$broadbandalb, PONDICE$depth, PONDICE$icetype.f)
+vif(test)
+```
+
+
+
+Creating a correllogram for the data set:
+
+```{r}
+library(corrplot)
+corrplot.mixed(cor(reorPondice),  tl.col="black")
+```
+We notice that there is a very high correlation between x1 and x5, they seem to be collinear. Y and x4 see to be collinear as well. The respective 0.99 and 0.95 $\hat R^2$ values show that we need to remove x1 and x4 from the model as they are collinear.
+
+Fixing the model 
+```{r}
+model = lm(PONDICE$broadbandalb~.,data = PONDICE)
+summary(model)
+```
+
+QUESTION 19 
+
+Cooling method for gas turbines. Refer to the
+Journal of Engineering for Gas Turbines and
+Power (January 2005) study of a high-pressure
+inlet fogging method for a gas turbine engine,
+Exercise 6.10 (p. 343). Recall that a number of
+independent variables were used to predict the
+heat rate (kilojoules per kilowatt per hour) for
+each in a sample of 67 gas turbines augmented
+with high-pressure inlet fogging. For this exercise,
+consider a first-order model for heat rate as a
+function of the quantitative independent variables’
+cycle speed (revolutions per minute), cycle pres-
+sure ratio, inlet temperature ( ◦ C), exhaust gas
+temperature ( ◦ C), air mass flow rate (kilograms
+per second), and horsepower (Hp units). Theoret-
+ically, the heat rate should increase as cycle speed
+increases. In contrast, theory states that the heat
+rate will decrease as any of the other independent
+variables increase. The model was fit to the data in
+the GASTURBINE file with the results shown
+in the accompanying MINITAB printout. Do you
+detect any signs of multicollinearity? If so, how
+should the model be modified?
+
+```{r}
+rpm <- GASTURBINE$RPM
+cpratio <- GASTURBINE$CPRATIO
+inlettemp <- GASTURBINE$INLETTEMP
+exhtemp <- GASTURBINE$EXHTEMP
+airflow <- GASTURBINE$AIRFLOW
+heatrate <-  GASTURBINE$POWER
+power =GASTURBINE$POWER
+```
+
+
+first order model : rpm, cpr, intlettemp, exhtemp, airflow, power
+
+```{r}
+library(usdm)
+data = data.frame(rpm,cpratio,inlettemp,exhtemp,airflow, power)
+vif(data)
+data = data.frame(rpm,cpratio,inlettemp,exhtemp,airflow)
+vif(data)
+data = data.frame(rpm,cpratio,exhtemp,airflow)
+vif(data)
+model = lm(heatrate~rpm+cpratio+exhtemp+airflow)
+
+library(corrplot)
+corrplot.mixed(cor(data.frame(heatrate,rpm,cpratio,exhtemp, airflow)))
+
+
+model
+summary(model)
+```
+```{r}
+library(olsrr)
+model1 = lm(heatrate~rpm+cpratio+exhtemp, data = GASTURBINE)
+ols_stepwise(model = model1, pent = 0.15, prem=0.15)
+summary(model1)
+model1
+```
+ 
+
+Question 21
+
+```{r}
+load("HAMILTON.Rdata")
+```
+```{r}
+y= HAMILTON$Y
+x1=HAMILTON$X1
+x2 = HAMILTON$X2
+cor.test(y,x1)
+cor.test(y,x2)
+model = lm(y ~ x1 + x2 )
+summary(model)
+
+```
+```{r}
+cor.test(x1,x2)
+
+summary(lm(y~x1))
+summary(lm(y~x2))
+library(usdm)
+vif(HAMILTON)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

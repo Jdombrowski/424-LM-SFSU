@@ -1,0 +1,507 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------z---------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{verbatim}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily,
+  escapeinside=||
+}
+% Margins
+\topmargin=-0.45in{}
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+
+% PROBLEM 8
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Homework Chapter 7: 
+\\Some Regression Pitfalls} % Assignment title
+\newcommand{\hmwkDueDate}{Tuesday,\ November\ 7,\ 2017} % Due date
+\newcommand{\hmwkClass}{MATH\ 424} % Course/class
+\newcommand{\hmwkClassTime}{11:10am} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Kafai} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Jonathan Dombrowski} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+
+%---------------------------------------------
+% Q _
+%---------------------------------------------
+\begin{homeworkProblem}[Q 6]
+%Question material goes here
+Characteristics of sea ice melt ponds. Surface
+albedo is defined as the ratio of solar energy
+directed upward from a surface over energy inci-
+dent upon the surface. Surface albedo is a critical
+climatological parameter of sea ice. The National
+Snow and Ice Data Center (NSIDC) collects data
+on the albedo, depth, and physical characteristics
+of ice melt ponds in the Canadian Arctic, includ-
+ing ice type (classified as first-year ice, multiyear
+ice, or landfast ice). Data for 504 ice melt ponds
+located in the Barrow Strait in the Canadian Arctic
+are saved in the PONDICE file. Environmental
+engineers want to model the broadband surface
+albedo level, y, of the ice as a function of pond
+depth, x 1 (meters), and ice type, represented by the
+dummy variables x 2 = {1 if first-year ice, 0 if not}
+and x 3 = {1 if multiyear ice, 0 if not}. Ultimately,
+the engineers will use the model to predict the
+surface albedo level of an ice melt pond. Access the
+data in the PONDICE file and identify the experi-
+mental region for the engineers. What advice do you
+give them about the use of the prediction equation?
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+		The problem was a bit unclear when associating which type of ice went with each level of x2. Based on the assumption that the number in x2 corresponds with the order the variables were mentioned in the text, the experimental regions in the data are as follows:
+		\\
+		1st year  icetype = 1: depth between (0.02, 0.36)\\
+		Landfast  icetype = 2: depth between (0.07, 0.64)\\
+		Multiyear icetype = 3: depth between (0.00, 0.86)\\
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+		The advice that I can give is that when using the prediction equation ${{y = \hat \beta_0 + \hat\beta_1x_1+\hat\beta_2x_2+\hat\beta_3x_3}}$	is only to use it to predict values within the intervals listed above; any values outside the corresonding are not accurate. The VIF scores do not show anything to be concerned about, so as long as the prediction values stay within the intervals, there should not be any complications. 
+	}
+	The VIF scores are appended
+	\begin{lstlisting}
+
+variables            	VIF
+PONDICE.broadbandalb	1.143472			
+PONDICE.depth	        1.344388			
+PONDICE.icetype	        NA	
+
+	\end{lstlisting}
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%---------------------------------------------
+% Q _
+%---------------------------------------------
+\newpage
+\begin{homeworkProblem}[Q 19]
+%Question material goes here
+Cooling method for gas turbines. Refer to the
+Journal of Engineering for Gas Turbines and
+Power (January 2005) study of a high-pressure
+inlet fogging method for a gas turbine engine,
+Exercise 6.10 (p. 343). Recall that a number of
+independent variables were used to predict the
+heat rate (kilojoules per kilowatt per hour) for
+each in a sample of 67 gas turbines augmented
+with high-pressure inlet fogging. For this exercise,
+consider a first-order model for heat rate as a
+function of the quantitative independent variables’
+cycle speed (revolutions per minute), cycle pres-
+sure ratio, inlet temperature ( ◦ C), exhaust gas
+temperature ( ◦ C), air mass flow rate (kilograms
+per second), and horsepower (Hp units). Theoret-
+ically, the heat rate should increase as cycle speed
+increases. In contrast, theory states that the heat
+rate will decrease as any of the other independent
+variables increase. The model was fit to the data in
+the GASTURBINE file with the results shown
+in the accompanying MINITAB printout. Do you
+detect any signs of multicollinearity? If so, how
+should the model be modified?
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+		Based on the minitab output, there are multiple variables that look like they need to be dropped. Any values that exceed the VIF value 10 have a very high likelihood for multicolinearity. The high VIF values coupled with the fact that the beta estimates defy the theory of the science behind the data is grounds to suggest multi-collinearity.  
+		\\ 
+		Cutting the highest VIF scoring variable until all VIF scores were below the threshold for proceeding with the regression. Below are the VIF scores after trimming and the correlation chart respectively. 
+		\\
+		\includegraphics[scale=0.40]{graph/19VIF.png}
+		After elininating terms based on VIF, until the VIF score of all terms is below the threshold, the model that is created after running through this screening process is shown below. All of the terms are statistically significant and are viable based off of the VIF scores. \\ 
+		Now that multiple correlation coefficients are taked care, the pairwise coefficients need to be taken care of.
+		
+	}
+
+		\begin{lstlisting}
+lm(formula = heatrate ~ rpm + cpratio + exhtemp + airflow)
+Residuals:
+   Min     1Q Median     3Q    Max 
+-26850  -9180  -1995  10580  33549 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -1.730e+05  2.615e+04  -6.618 9.79e-09 ***
+rpm          1.637e+00  3.848e-01   4.255 7.20e-05 ***
+cpratio      2.885e+03  4.704e+02   6.133 6.62e-08 ***
+exhtemp      2.015e+02  5.123e+01   3.932 0.000215 ***
+airflow      3.993e+02  1.356e+01  29.451  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 14100 on 62 degrees of freedom
+Multiple R-squared:  0.9791,	Adjusted R-squared:  0.9777 
+F-statistic: 725.6 on 4 and 62 DF,  p-value: < 2.2e-16
+		\end{lstlisting}
+		\includegraphics[scale=0.35]{graph/Selection_089.png}
+		\\
+	After this correlation, we can see that airflow should be removed from the model due to the incredibly high correlation with our y ( heatrate). A method of variable selection should then be applied to decide ) After removing Airflow, we now have a valid set of data to work with. The next step would be a variable screening method to proceed with the actual regression. At this point we can apply the stepwise selection method to decide how to progress now that we can confirm, not just assume the variables are not collinear. The stepwise application results as follows : 
+	\begin{lstlisting}
+Stepwise Selection Method                                                                  
+
+Candidate Terms:                                                                           
+
+1 . rpm                                                                                    
+2 . cpratio                                                                                
+3 . exhtemp                                                                                
+
+------------------------------------------------------------------------------------------
+                                Stepwise Selection Summary                                 
+------------------------------------------------------------------------------------------
+                     Added/                   Adj.                                            
+Step    Variable    Removed     R-Square    R-Square     C(p)         AIC          RMSE       
+------------------------------------------------------------------------------------------
+   1    exhtemp     addition       0.398       0.389    57.9680    1696.2335    73857.7898    
+   2      rpm       addition       0.665       0.654     6.3870    1659.0336    55554.1029    
+   3    cpratio     addition       0.687       0.672     4.0000    1656.5232    54139.9156    
+------------------------------------------------------------------------------------------
+	\end{lstlisting}
+	The selected model after screening is predicting heatrate based off of rpm, cpratio, and exhtemp. The model is as follows
+	${{E(y) = -5.337\times 10^5 -5.943x_{rpm}  +  3.776\times 10^3 x_{cpratio} +  1.147\times 10^3x_{exhtemp}  }}$
+
+\\
+In summary, yes, we detected signs of multicollinearity, we handled this by removing the collinear terms, then removing variables based on their pairwise correlation, then finally running the dataset through a variable screening method; in this case stepwise in order to refine the prediction model. 
+\end{homeworkSection}
+\end{homeworkProblem}
+
+
+
+
+
+
+
+
+
+
+%---------------------------------------------
+% Q 21
+%---------------------------------------------
+\newpage
+\begin{homeworkProblem}[Q 21]
+%Question material goes here
+Multicollinearity in real estate data. D. Hamilton
+illustrated the multicollinearity problem with an
+example using the data shown in the accompany-
+ing table. The values of x 1 , x 2 , and y in the table
+at right represent appraised land value, appraised
+improvements value, and sale price, respectively,
+of a randomly selected residential property. (All
+measurements are in thousands of dollars.)
+\\
+(a) Calculate the coefficient of correlation between
+y and x 1 . Is there evidence of a linear rela-
+tionship between sale price and appraised
+land value?
+\\
+(b) Calculate the coefficient of correlation between
+y and x 2 . Is there evidence of a linear rela-
+tionship between sale price and appraised
+improvements?
+\\
+(c) Based on the results in parts a and b, do you
+think the model E(y) = β 0 + β 1 x 1 + β 2 x 2 will
+be useful for predicting sale price?
+\\
+(d) Use a statistical computer software package to
+fit the model in part c, and conduct a test of
+model adequacy. In particular, note the value
+of R 2 . Does the result agree with your answer
+to part c?
+\\
+(e) Calculate the coefficient of correlation
+between x 1 and x 2 . What does the result
+imply?
+\\
+(f) Many researchers avoid the problems of mul-
+ticollinearity by always omitting all but one
+of the ‘‘redundant’’ variables from the model.
+Would you recommend this strategy for this
+example? Explain. (Hamilton notes that, in this
+case, such a strategy ‘‘can amount to throwing
+out the baby with the bathwater.’’)
+\\
+
+
+\begin{homeworkSection}{a}
+	\problemAnswer{
+	%Question answer goes here
+		With 95\% confidence, we can say that the true value for the correlation coefficient is between (-0.51, 0.51), with the estimate being 0.00249. We fail to reject the notion that the correlation is zero with a t-test.
+		\\
+		$H_{0} : R^{2}=0$
+		\\
+		$H_{a} : R^{2} \neq 0$
+		\\
+		p-value = 0.993
+		\\
+		We fail to reject the null hypothesis and state that R = 0. There is not evidence of a linear relationship between sale price and appraised land value.
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{b}
+	\problemAnswer{
+	With 95\% confidence, we can say that the true value for the correlation coefficient is between (-0.10, 0.77), with the estimate being 0.434. We fail to reject the notion that the correlation is zero with a t-test.
+		\\
+		$H_{0} : R^{2}=0$
+		\\
+		$H_{a} : R^{2} \neq 0$
+		\\
+		p-value = 0.106
+		\\
+		We fail to reject the null hypothesis and state that R = 0. There is not evidence of a linear relationship between improvement price and appraised land value.
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{c}
+	\problemAnswer{
+		Basing a conclusion solely off of the information from parts a and b, The model ${{y = \hat\beta_0+\hat\beta_1x_1+\hat\beta_2x_2}}$ seems to be a good candidate for regression for predicting appraised value. The correlation between the subset of pairwise variables and the y does not indicate anything of multicolinearity, so the model seems fine to proceed to testing. However there doesn't seem to be any useful correlation between the y and the respective x's, therefore the resultant regression model most likely will not be useful in predicting appraisal value.
+	}
+\end{homeworkSection}
+
+\begin{homeworkSection}{d}
+	Fitting the model ${{y = \hat\beta_0+\hat\beta_1 + \hat\beta_2}}$ to the dataset, the results form an accurate model. The readout is as follows. 
+
+	\begin{lstlisting}
+Call:
+lm(formula = y ~ x1 + x2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.13632 -0.09452 -0.02279  0.08629  0.16325 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -45.154136   0.611418  -73.85   |\colorbox{magenta!30}{<2e-16 ***}|
+x1            3.097008   0.012274  252.31   |\colorbox{magenta!30}{<2e-16 ***}|
+x2            1.031859   0.003684  280.08   |\colorbox{magenta!30}{<2e-16 ***}|
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1072 on 12 degrees of freedom
+Multiple R-squared:  0.9998,	Adjusted R-squared:  |\colorbox{magenta!30}{0.9998}| 
+F-statistic: 3.922e+04 on 2 and 12 DF,  p-value: < 2.2e-16
+	\end{lstlisting}
+
+	The correlation between the model and the dataset is unreasonably high. High enough to prompt questioning of the data's independence. The value confirms the notion in part c that the model was a good candidate for a regression. 
+
+
+\end{homeworkSection}
+\begin{homeworkSection}{e}
+The results from calculating the $R^{2}$ value between the x1 and x2 is as follows :
+
+	\begin{lstlisting}
+data:  x1 and x2
+t = -7.4348, df = 13, p-value = 4.94e-06
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ |\colorbox{magenta!30}{-0.9665398 -0.7188453}|
+sample estimates:
+       cor 
+|\colorbox{magenta!30}{-0.8997765 }|
+	\end{lstlisting}
+
+The value -0.89977 is concerning, but not \emph{technically} within our threshold of 0.9 for rejection or pairwise correlation. This close of a value lends itself to suggest that x1 and x2 are correlated, which would mean looking to remove one of them from the model. However attempting that only led to p-values for the betas that did not reject the null hypothesis that they were equal to zero; which would render the model useless.
+\end{homeworkSection}
+ 
+\begin{homeworkSection}{f}
+	Removing x1 results in a model that is not statistically significant.
+	\begin{lstlisting}
+Call:
+lm(formula = y ~ x1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.6910  -6.7912  -0.0326   6.4412  11.2993 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 1.199e+02  1.267e+01   9.463  3.4e-07 ***
+x1          3.747e-03  4.161e-01   0.009    0.993    
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 8.324 on 13 degrees of freedom
+Multiple R-squared:  6.24e-06,	Adjusted R-squared:  -0.07692 
+F-statistic: 8.112e-05 on 1 and 13 DF,  p-value: 0.993
+	\end{lstlisting}
+	Removing x1 results in a model that is not statistically significant.
+	\begin{lstlisting}
+Call:
+lm(formula = y ~ x2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.8999  -6.3345   0.0023   6.1458  10.4033 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 106.3194     8.1094  13.111 7.18e-09 ***
+x2            0.1955     0.1125   1.737    0.106    
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 7.499 on 13 degrees of freedom
+Multiple R-squared:  0.1884,	Adjusted R-squared:  0.126 
+F-statistic: 3.018 on 1 and 13 DF,  p-value: 0.106
+	\end{lstlisting}
+Both of which are unusable regressions. In this case, avoiding the problems of multicollinearity by omitting all but one
+of the ‘‘redundant’’ variables from the model, destroys the model. Therefore we can't drop $x_{1}$ or $x_{2}$. I would not reccomend this strategy foor the situation as it results in a dead end where the two variable model results in a very significant model. 
+\end{homeworkSection}
+	
+	
+\end{homeworkProblem}
+
+
+\end{document}

@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: 
+---
+
+```{r}
+setwd("~/Documents/SFSU.FALL.2017/424/R/R/Exercises&Examples")
+load("ROADBIDS.Rdata")
+View(ROADBIDS)
+```
+
+```{r}
+load("PACGEESE.Rdata")
+View(PACGEESE)
+
+model <- glm(PACGEESE$RESPONSE~.-FLIGHT, family = binomial(link = 'logit'),data = PACGEESE)
+
+summary(model)
+```
+
+

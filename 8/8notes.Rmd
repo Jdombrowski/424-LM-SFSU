@@ -1,0 +1,49 @@
+---
+title: "Ch 8 Examples"
+output: html_notebook
+---
+
+
+```{r}
+setwd("~/Documents/SFSU.FALL.2017/424/R/R/Exercises&Examples")
+load("OLYMPIC.Rdata")
+View(OLYMPIC)
+```
+pg 386
+```{r}
+model = lm(OLYMPIC$CHOLES~., data = OLYMPIC)
+summary(model)
+model2 = lm(OLYMPIC$CHOLES~OLYMPIC$FAT + I(OLYMPIC$FAT^2), data = OLYMPIC)
+summary(model2)
+sum(residuals(model))
+sum(residuals(model2))
+plot(model)
+```
+ p2 
+```{r}
+load("COFFEE2.Rdata")
+View(COFFEE2)
+model = lm(COFFEE2$PRICE~COFFEE2$DEMAND+COFFEE2$X)
+summary(model)
+sum(residuals(model))
+plot(model)
+```
+We see that the residuals do not appear to be linear, but curvilinear instead. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

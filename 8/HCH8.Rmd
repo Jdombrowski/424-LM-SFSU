@@ -1,0 +1,136 @@
+---
+title: "HCH8"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = '~/Documents/SFSU.FALL.2017/424/R/R/Exercises&Examples')
+```
+4,11,20,26
+
+Question 4 U
+dataset: MOISSANITE
+
+(a) Calculate the regression residuals.
+(b) Plot the residuals against x. Do you detect
+a trend?
+(c) Propose an alternative model based on the plot,
+part b.
+(d) Fit and analyze the model you proposed in
+part c.
+```{r}
+setwd("~/Documents/SFSU.FALL.2017/424/R/R/Exercises&Examples")
+load("MOISSANITE.Rdata")
+View(MOISSANITE)
+
+```
+a) calculate residuals
+```{r}
+model = lm(MOISSANITE$VOLUME~MOISSANITE$PRESSURE)
+plot(model, which = 1:1)
+resid(model)
+sum(residuals(model))
+```
+After plotting the residuals of the model, the plot of FItted values vs Residuals, we can see that there is a trend in the residuals and instead of being linear, appears to be quadratic. 
+
+The new proposed model is $E(y)=\hat\beta_0 + \hat\beta_1x_1 + \hat\beta_2x_1^2$
+Testing this:
+```{r}
+model2 = lm(MOISSANITE$VOLUME~MOISSANITE$PRESSURE+I(MOISSANITE$PRESSURE^2))
+plot(model2,which = 1:1)
+```
+Which we can see that the residuals are within 2s and appear to be far more randomnly distributed than the purely linear model. We can then conclude that the second order model fits the data more accurately. 
+
+Question 11
+
+E(y) = β 0 + β 1 x 1 + β 2 x 2 + β 3 x 1 x 2 .
+Fit the model to the data saved in the GASTURBINE file, then plot the residuals against predicted heat rate. Is the assumption of a constant error variance reasonably satisfied? If not, suggest how to modify the model.
+```{r}
+load("GASTURBINE.Rdata")
+View(GASTURBINE)
+heatrate= GASTURBINE$HEATRATE
+rpm = GASTURBINE$RPM
+cpratio = GASTURBINE$CPRATIO
+model = lm(heatrate~cpratio+rpm+I(cpratio*rpm))
+summary(model)
+model = lm(heatrate~cpratio+rpm)
+plot(model, which = 1:1)
+```
+since we see that the distribution is roughly binomial, we can try the transformation $sin^{-1}\sqrt{y}$. However the constant error variation seems to be satisfied as the data stands presently. 
+
+
+Quesl.tion 20
+
+The Normal Q-Q plot, and residual plot are displayed below. The Q-Q chart compares the standardized residuals with the quartiles that should be theoretically exist.  
+```{r}
+model = lm(heatrate~cpratio+rpm+I(cpratio*rpm))
+plot(model, which = 1:2)
+```
+Here, we graph the residuals versus the expected residuals under the assumption of normality. If we assume normality, then we expect to see a near straight line from plotting th two against eachother. Failing to see this would be akin to a proof by contradiction. We assume the plot will be a straight line and see if the shows us otherwise. In this case, excluding the 3 extreme outliers, 11,36,64, this can be viewed as sufficiently normal.
+
+```{r} 
+GASTURBINE
+trimmedData = GASTURBINE[-11,]
+model = lm(trimmedData$HEATRATE~trimmedData$CPRATIO+trimmedData$RPM+I(trimmedData$CPRATIO*trimmedData$RPM), data = trimmedData)
+plot(model, which = 2:2)
+
+trimmedData = GASTURBINE[c(-11,-36),]
+model = lm(trimmedData$HEATRATE~trimmedData$CPRATIO+trimmedData$RPM+I(trimmedData$CPRATIO*trimmedData$RPM), data = trimmedData)
+plot(model, which = 2:2)
+
+trimmedData = GASTURBINE[c(-11,-36, -64),]
+model = lm(trimmedData$HEATRATE~trimmedData$CPRATIO+trimmedData$RPM+I(trimmedData$CPRATIO*trimmedData$RPM), data = trimmedData)
+plot(model, which = 2:2)
+```
+After excluding the 3 outliers in respect to residuals, the line appears resonably straight and therefore we can assume that the constant variation of error is normal. The model is still not suggested to be second degree.Changing the model to a first-degree regression as mentioned in the previous problem is reccommended. Doign residual analysis on the first order equation:
+```{r}
+trimmedData = GASTURBINE
+model = lm(trimmedData$HEATRATE~trimmedData$CPRATIO+trimmedData$RPM, data = trimmedData)
+plot(model, which = 2:2)
+trimmedData = GASTURBINE[c(-11,-64,-36),]
+model = lm(trimmedData$HEATRATE~trimmedData$CPRATIO+trimmedData$RPM, data = trimmedData)
+summary(model)
+plot(model, which = 2:2)
+```
+
+
+Question 26
+```{r}
+load("GFCLOCKS.Rdata")
+View(GFCLOCKS)
+```
+model
+```{r}
+model = lm(GFCLOCKS$PRICE~GFCLOCKS$AGE+GFCLOCKS$NUMBIDS)
+summary(model)
+```
+a)
+```{r}
+residuals(model)
+```
+b)
+```{r}
+sum(residuals(model))/32
+var(residuals(model))
+var(GFCLOCKS$PRICE)
+var(residuals(model))/var(GFCLOCKS$PRICE)
+cooks.distance(model)
+plot(model, which =5)
+```
+We see that graphically, no residuals fall outside 2s or 3s. To numerically find this proportion, we compare this to 2s and 3s. 
+```{r}
+s = sigma(model)
+s
+2*s
+3*s
+```
+We find that s = 133.48, 2s = 266.97, and 3s = 400.45. By checking the maximum of the residuals, we can see there are any residuals that fall outside 2s or 3s. We find that the maximum value for a residual from this model is 213.50 and we can then conclude that there is not a proportion of residuals that fall outside 2s or 3s.
+```{r}
+max(abs(residuals(model)))
+influence.measures(model)
+```
+
+ 
+ 
