@@ -7,8 +7,10 @@ output:
 setwd("~/Documents/SFSU.FALL.2017/424/R/R/Exercises&Examples")
 load("ROADBIDS.Rdata")
 View(ROADBIDS)
+model = glm(ROADBIDS$STATUS~ROADBIDS$NUMBIDS+ROADBIDS$DOTEST, family = binomial(link="logit"))
+summary(model)
 ```
-
+"
 ```{r}
 load("PACGEESE.Rdata")
 ```
@@ -17,11 +19,12 @@ load("PACGEESE.Rdata")
 model <- glm(RESPONSE~ALTITUDE+LATERAL, family = binomial(link = 'logit'),data = PACGEESE)
 
 summary(model)
-#how to determine adequacy in the model??? chi-squared test?????
 anova(model, test = "Chisq")
-pchisq(model$deviance, model$df.residual)
-newdata = data.frame(ALTITUDE=6, LATERAL=3)
+1-pchisq(model$null.deviance-model$deviance, model$df.null-model$df.residual)
+  newdata = data.frame(ALTITUDE=6, LATERAL=3)
 predict(model,newdata,type="response")
+logLik(model)
+
 ```
 b) We reject the null hypothesis for this test and say that using $\alpha=0.01$, we can say that the   flight response time of the geese is dependant on the altitude of the helicopter. $\beta_{1_{zscore}}$ = 2.914, with an accompanying p-value of p=0.00357, which is below our given $\alpha$. 
 
@@ -29,55 +32,35 @@ c) Based on the model summary, we can reject the null hypothesis and state that 
 
 ```{r}
 load("MTBE.Rdata")
-View(MTBE)
-library(olsrr)
 ```
 
 
 ```{r}
-wellclass <- MTBE$WellClass                                      
-aquafer <- MTBE$Aquifier
+wellclass <- MTBE$WellClass
+aquifer <- MTBE$Aquifier
 ph <- MTBE$pH
 welldepth <- MTBE$Depth
 do2 <- MTBE$DissOxy
 d2f <- MTBE$Distance
 pind <- MTBE$IndPct
 detet <- MTBE$MTBEDetect
-factor(wellclass)
-wellclass <- as.numeric(as.factor(wellclass)) - 1
-aquafer <- as.numeric(as.factor(aquafer)) - 1                                                                               
-detet <- as.numeric(as.factor(detet)) - 1
-mtbe.lmCoded <- lm(detet ~ wellclass+aquafer+ph+welldepth+do2+d2f+pind)
-step(mtbe.lmCoded,direction='both')
-```
+levels(detet) = c(0,1)
+detet
 
-```{r}
-wellclass <- MTBE$WellClass   
-wellclass
-aquafer <- MTBE$Aquifier
-ph <- MTBE$pH
-welldepth <- MTBE$Depth
-do2 <- MTBE$DissOxy
-d2f <- MTBE$Distance
-pind <- MTBE$IndPct
-detet <- MTBE$MTBEDetect
-wellclass <- as.numeric(as.factor(wellclass)) - 1
-aquafer <- as.numeric(as.factor(aquafer)) - 1                                                                               
-detet <- as.numeric(as.factor(detet)) - 1
-mtbe.lmCoded <- glm(detet ~ wellclass+aquafer+ph+welldepth+do2+d2f+pind)
-model = step(mtbe.lmCoded,direction='both')
-model
+model <- glm( detet ~ wellclass+aquifer+ph+welldepth+do2+d2f+pind, family = binomial(link = 'logit'))
+par(mfrow=c(2,2))
 plot(model)
-step(mtbe.lmCoded,direction='forward',trace =1)
-
-
-pchisq(model$deviance, model$df.residual)
-```
-
-```{r}
-model = glm(formula = detet ~ pind + welldepth)
 summary(model)
+1-pchisq(model$null.deviance-model$deviance, model$df.null-model$df.residual)
+#suggested model
+model <- glm( detet~ wellclass+ph+welldepth, family = binomial(link = 'logit'))
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+logLik(model)
+1-pchisq(model$null.deviance-model$deviance, model$df.null-model$df.residual)
 ```
+
 #28
 ```{r}
 load("BONDING.Rdata")
@@ -86,27 +69,11 @@ View(BONDING)
 
 ```{r}
 #smartbond = 1 , composite = 0
-BONDING$ADHESIVE
+#BONDING$ADHESIVE
 adhesive <- as.numeric(as.factor(BONDING$ADHESIVE))-1
 adhesive
-model = glm(adhesive~BONDING$ARISCORE)
+model = glm(BONDING$ADHESIVE~BONDING$ARISCORE, family = binomial(link = "logit"))
 summary(model)
-pchisq(model$deviance, model$df.residual)
+1-pchisq(model$null.deviance-model$deviance, model$df.null-model$df.residual)
 logLik(model)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
