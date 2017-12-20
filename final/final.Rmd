@@ -1,0 +1,297 @@
+---
+title: "Final Homework"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+Math 424 Kafai
+by Jonathan Dombrowski
+
+##Q1.
+Consider the data in q1data.txt. All subjects are asthmatics. For the model with Forced Expiratory Volume (FEV) as the response and Height, Weight, and Age as the predictors,
+
+a) Examine a plot of the studentized or jackknife residuals versus the predicted values. Are any regression
+assumption violations apparent? If so, suggest possible remedies.
+
+b) Examine numerical descriptive statistics, histograms, box-and-whisker plots, and normal probability plots
+of jackknife residuals. Is the normality assumption violated? If so, suggest possible remedies.
+
+c) Examine outlier diagnostics, including Cook’s distance, leverage statistics, and jackknife residuals, and
+identify any potential outliers. What course of action, if any, should be taken when outliers are identified?
+
+d) Examine variance inflation factors, condition i.Ildices (unadjusted and adjusted for the intercept), and
+variance proportions. Are there any important collinearity problems? If so, suggest possible remedies.
+
+------------------------------------------------------------------------
+
+###Work
+
+loading in data, had to trim the second row in order for R not to have the data be forcibly read as factors. 
+The units are as follows
+
+age   sex     Height   Weight   FEV
+(yr)   (m/f)    (cm)     (kg)    (L)
+
+```{r}
+df <- read.table(file = "q1data.txt", header = TRUE, skip = 0)
+head(df)
+```
+###a)
+```{r}
+model = lm(FEV~Height+Weight+age, data = df)
+#sum of residuals
+sum(model$residuals)
+
+summary(model)
+plot(model,which = 1:1)
+```
+a) From analyzing the Residuals vs. Fitted graph, we can see that the there are no residuals that fall out of the range of 2- standard deviations, so nothing has been violated so far. The sum of the residuals is $-3.191891\times10^{-16}$, which means that the assumption that the sum of the residuals is zero is not violated. 
+
+b) Moving to looking at the Normal Q-Q plot, the residuals appear to be reasonably normally distributed.  Only point #14 is past 2 deviations., to remedy this issue, I would suggest jackknifing and removing the data point 14, then rebuilding the normality check to see if the other conditions have held as well. 
+
+####b)
+```{r}
+summary(df)
+hist(resid(model))
+sum(model$residuals)
+boxplot(model$residuals, xlab="residuals", ylab ="Studentized Residuals", main = "Residual Boxplot")
+```
+The sum of the residuals is $-3.191891\times10^{-16}$, which means that the assumption that the sum of the residuals is zero is not violated.
+
+The Boxplot of the residuals tells us that the data seems to be reasonably normally distributed if at all negatively skewed slightly. However the mean is still centered at zero. 
+
+#### c)
+```{r}
+plot(model,which=4:4)
+```
+Based on this readout, there does not seem to be anything in violating cooks distance, but 18 is very close. However it does not cross the 0.5 threshold so it does not have a large enough leverage over the model to warrant removal of the data point. 
+
+For leverage to be considered too influential to be included,its' influence must be greater than the 
+$\bar{2h}= \frac{2(k+1)}{n}= \frac{8}{19}=0.421$
+Checking the residuals:
+```{r}
+test = influence(model)
+test$hat
+```
+From this we can see that only the point 18 is considered too influential to be included in the mode therefore we must suggest that 18 be removed from the model, and this test be redone until all values are withing the influence threshold. 
+
+#### Multicollinearity
+Testing for multicollinearity, we will test whether or not any of the terms has a variable inflation(VIF) of over 10; whether or not $VIF_i = \frac{1}{1-R^2_i} \forall i = 1:k$, where $R^2_i$ is the multiple coefficient for the model. 
+```{r}
+library(usdm)
+vif(df)
+```
+We can see that clearly none of the values are above a VIF of 10, therefore we can conclude that there are no multicollinearity and therefore life is easy, we can go home. 
+
+To graphically support this claim: we can look at the plots of all of the pairwise variables. We can visually see that there is no strong collinearity in the data frame. 
+```{r}
+plot(df)
+```
+From this, we do not detect any collinearity problems.
+
+
+------------------------------------------------------------------------
+
+###Q2.
+A random sample of data was collected on residential sales in a large city. The data in q2data.txt
+shows the selling price (Y, in $1,000s), area (x1, in hundreds of square feet), number of bedrooms (X2), total
+number of rooms (X3), house age (X4, in years), and location (Z = 0 for in-town and inner suburbs, Z=1for
+outer suburbs). In parts a through c, use variables X1, X2, X3, X4, and Z as the predictor variables.
+
+a) Use the all possible regressions procedure to suggest a best model.
+
+b) Use the stepwise regression algorithm to suggest a best model.
+
+c) Use the backward elimination algorithm to suggest a best model.
+
+d) Which of the models selected in a, b, and c seems to be the best model, and why?
+
+------------------------------------------------------------------------
+
+###Work
+First we will create the base model in which we can work from:
+```{r}
+library(olsrr)
+df <- read.table(file = "q2data.txt", header = TRUE)
+head(df)
+model_Base = lm(y~x1+x2+x3+x4+Z, data = df)
+summary(model_Base)
+```
+###a) All possible subsets
+Since we used Mallows Cp statistic for the previous homework, we will use it here. If we look at the Cp scores for the different variable numbers, we can see that 3 variables is where the minimum Cp value exists and there for the correct place to stop the regression.
+```{r}
+library(olsrr)
+bestSubsetData = (ols_best_subset(model_Base))
+bestSubsetData
+plot(bestSubsetData$cp)
+```
+The readout states that the lowest Cp value, that is near P+1 (with P= number of predictors ) contains 3 variables, and follows the form:
+  $E(y)=\beta_0 + \beta_1x_1 +\beta_3x_3+\beta_4x_4$
+Building and testing this model:
+```{r}
+modelSS = lm(y~x1+x3+x4, data = df)
+summary(modelSS)
+```
+$H_o : \beta_1=\beta_3=\beta_4 = 0$
+
+$H_a : \beta_i \neq \beta_j , i\neq j$
+
+p:value 6.701$\times 10^{-10}$
+
+$R^2$ = 0.8224
+
+###b) Stepwise Selection
+```{r}
+ols_stepwise(model_Base)
+modelStep = lm(y~x1+x3, data = df)
+summary(modelStep)
+```
+From the Stepwise method, we can see that the resultant model from the R readout is :
+$E(y)= \hat \beta_0 + \hat \beta_1x_1 + \hat \beta_3x_3$ = -4.21 + 1.30$x_1$ + 10.14$x_3$
+
+$H_o : \beta_1=\beta_3= 0$ 
+
+
+$H_a : \beta_i \neq \beta_j , i\neq j$
+
+p:value 2.277$\times 10^{-10}$
+
+$R^2$ = 0.8069
+We can conclude that this model is a statistically significant predictor of y. 
+
+
+###c) Backwards Selection
+```{r}
+ols_step_backward(model_Base, prem = 0.5)
+modelBWS = lm(y~x1+x2+x3+x4, data = df)
+summary(modelBWS)
+```
+Using the comparison value for removing a term = 0.5, we end up with tthe model:
+$E(y) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_3 + \beta_4x_4$
+
+$\approx -7.66 + 0.804x_1 + 3.662x_3 + 0.614x_4$. This model has a $R^2$=0.808 and a p-value of 1.949$\times10^{-10}$. 
+
+$H_o : \beta_1 = \beta_2= \beta_3 = \beta_4 = 0$
+
+$H_a : \beta_i \neq \beta_j \forall i\neq j$
+
+Using $\alpha = 0.05$, we can compare this to the p-value from the model and we can conclude that the model is statistically significant in predicting the y-variable. 
+
+###d) Model comparision
+
+**All Possible Subset**
+$E(y)=\beta_0 + \beta_1x_1 +\beta_3x_3+\beta_4x_4$
+
+$R^2$ = 0.822
+
+**Backwards**
+$E(y) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_3 + \beta_4x_4$
+
+$R^2$=0.808
+
+**Stepwise**
+$E(y)= \hat \beta_0 + \hat \beta_1x_1 + \hat \beta_3x_3$
+
+$R^2$ = 0.807
+
+Comparing between these, which are all statistically significant when it comes to predicting the value of y, not every selection method returned terms that were significant in their respective models. The only method to return values that were all significant within ttheir model was stepwise selection. Adding the fact that the multiple R value does not dramatically change also supports that the stepwise method is optimal; the $R^2$ value for All Subsets increases but this is probably to do with the fact that there are more predictors in the model. Finally, the argument for the law of parsimony, or Occam's Razor states that when given the choice, the simplest model is probably the best. From the information that we have gathered, there does not seem to be any reason to choosee any of the models over the one that stepwise regression gas given us. Below are two nested F-tests to confirm this notion. 
+
+```{r}
+anova(modelStep, modelSS)
+anova(modelStep, model_Base)
+anova(modelStep, modelBWS)
+```
+From these test we can conclude that we have no reason to include any other variables other than x1 and x3. Therefore, in this case Stepwise returns the best model. 
+
+
+
+------------------------------------------------------------------------
+
+##Q3.
+The data listed in q3data.txt relate to a study by Reiter and others concerning the effects of injecting
+triethyl-tin (TET) into rats once at age 5 days. The animals were injected with 0, 3, or 6 mg per kilogram
+of body weight. The response was the log of the activity count, log (ac), for 1 hour, recorded at 21 days of
+age. The rat was left to move about freely in a figure 8 maze. Analysis of other studies with this type of
+activity count confirms that log counts should yield Gaussian errors if the model is correct.
+
+a) Conduct a two-way ANOVA with SEX and DOSAGE as factors.
+
+b) Using = .05, report your conclusions based on the ANOVA.
+
+c) Which, if any, families of means should be followed up with multiple-comparison tests? What type of
+comparisons would you recommend?
+
+
+------------------------------------------------------------------------
+
+###Work
+
+loading in data
+```{r}
+df <- read.table(file = "q3data.txt", header = TRUE)
+head(df)
+dose = (as.factor(df$Dosage))
+dose
+sex = as.factor(df$Sex)
+model = lm(log.ac.~sex+dose,data = df)
+```
+
+
+#### a)
+````{r}
+summary(aov(model))
+plot(model)
+```
+
+------------------------------------------------------------------------
+
+##Q4.
+The data in q4data.txt is the record of coronary artery disease (ca, 0=no, 1= yes), age, ECG (0, 1, and
+2 based on the reading of ST segment depression), and sex (0=male, 1=female). Based on this model
+
+a) What is the estimated logistic regression model for the relationship between ca and age, ECG, sex?
+
+b) What is a 30-year-old male, ECG=2 predicted probability of having coronary artery disease?
+
+c) Estimate the odds ratio comparing a 30-year-old male, ECG=2 to a 31-year-old male, ECG=2. Interpret
+this estimated odds ratio.
+
+d) Find a 95% confidence interval for the population odds ratio being estimated in part (c).
+
+------------------------------------------------------------------------
+###Work
+
+loading in data
+```{r}
+df <- read.table(file = "q4data.txt", header = TRUE)
+head(df)
+ca  = as.factor(df$ca)
+age = df$age
+ecg = as.factor(df$ecg)
+sex = as.factor(df$sex)
+model = glm(ca~age+ecg+sex, family=binomial(link = "logit"))
+```
+
+###a)
+```{r}
+summary(model)
+model
+```
+
+###b)
+#TODO predict errors as usual
+```{r}
+newdata = data.frame(age=30, ecg=2, sex = 0)
+predict(model,newdata,type="response")
+```
+
+
+
+
+
+
+
+
+
+
+
